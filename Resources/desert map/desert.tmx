@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="17" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
- <tileset firstgid="1" source="desert.tsx"/>
- <layer id="1" name="Ground" width="30" height="17">
-  <data encoding="base64" compression="zlib">
-   eJzFlcsOgjAQRUdZ+CARVz4jRlHEZ/z/r/MSIZBJGaZg6+IsmrQ9c2caiIkodsgMRGDu2FPnZfDuPbn/kTfPtgBLsPLozRmAIQhYPTZ3rMHGgi2YgCkIe9R+AEcLkg7eTPCewA2cHXilvIkyfx9v6tH7Zj7ufdD33Tx/5OUz5eu2fHzuktf0fjKWN1V6eR/a8l4aZmqbt2ufuZ9zLfqo5S54RwVjqr5pEoFyX8muwRtR9b8oa5MIlftM5+reD/UjNoc=
-  </data>
- </layer>
-</map>
