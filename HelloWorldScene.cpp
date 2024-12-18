@@ -5,6 +5,7 @@
 #include"menu.h"
 #include"Plant.h"
 #include"bag.h"
+#include"animation.h"
 USING_NS_CC;
 cocos2d::TMXTiledMap* HelloWorld::map = nullptr;
 Sprite* HelloWorld::hero = nullptr;
@@ -48,7 +49,7 @@ bool HelloWorld::init()
     this->addChild(map, 1);
 
     //·ÅÖÃÖ÷½Ç
-    hero = Sprite::create("player.png");
+    hero = initframe("qilunuo", "walk", "down");
     hero->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
     this->addChild(hero, 3);
     auto herobody = PhysicsBody::createBox(hero->getContentSize());
@@ -164,8 +165,9 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
-                auto action = MoveBy::create(0.1f, Vec2(0, HERO_SPEED));
-                auto repeat = RepeatForever::create(action);
+                auto action = MoveBy::create(0.4f, Vec2(0, 4 * HERO_SPEED));
+                auto animationaction = getanimation("qilunuo", "walk", "up", 4, 0.1);
+                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
                 repeat->setTag(static_cast<int>(MyActionTag::MyGoUp));
                 this->hero->runAction(repeat);
             }
@@ -176,8 +178,9 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
-                auto action = MoveBy::create(0.1f, Vec2(0, -HERO_SPEED));
-                auto repeat = RepeatForever::create(action);
+                auto action = MoveBy::create(0.4f, Vec2(0, -4 * HERO_SPEED));
+                auto animationaction = getanimation("qilunuo", "walk", "down", 4, 0.1);
+                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
                 repeat->setTag(static_cast<int>(MyActionTag::MyGoDown));
                 this->hero->runAction(repeat);
             }
@@ -189,8 +192,9 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
-                auto action = MoveBy::create(0.1f, Vec2(-HERO_SPEED, 0));
-                auto repeat = RepeatForever::create(action);
+                auto action = MoveBy::create(0.4f, Vec2(-4 * HERO_SPEED, 0));
+                auto animationaction = getanimation("qilunuo", "walk", "left", 4, 0.1);
+                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
                 repeat->setTag(static_cast<int>(MyActionTag::MyGoLeft));
                 this->hero->runAction(repeat);
             }
@@ -201,8 +205,9 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
-                auto action = MoveBy::create(0.1f, Vec2(HERO_SPEED, 0));
-                auto repeat = RepeatForever::create(action);
+                auto action = MoveBy::create(0.4f, Vec2(4 * HERO_SPEED, 0));
+                auto animationaction = getanimation("qilunuo", "walk", "right", 4, 0.1);
+                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
                 repeat->setTag(static_cast<int>(MyActionTag::MyGoRight));
                 this->hero->runAction(repeat);
             }
