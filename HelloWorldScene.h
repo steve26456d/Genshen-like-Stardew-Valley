@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include"NPC.h"
+#include"Plant.h"
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -29,8 +30,8 @@ public:
 
     virtual void onExit();                  
     
-    void AddPlant(const std::string& filepath);                               //添加植物
-    void AddAnimal();                              //添加动物
+    Plant* AddPlant(const std::string& filepath);                               //添加植物
+    Object* AddAnimal(const std::string& filepath);                              //添加动物
     // implement the "static create()" method manually
 
     //生成HelloWorld::create()

@@ -6,11 +6,14 @@
 #include"Plant.h"
 #include"bag.h"
 #include"animation.h"
+#include"Item.h"
 USING_NS_CC;
 cocos2d::TMXTiledMap* HelloWorld::map = nullptr;
 Sprite* HelloWorld::hero = nullptr;
 Object* HelloWorld::collidedSprite = nullptr;
 bool HelloWorld::IsCollide = false;
+
+const Size AnimalSize = { 60,60 };
 
 Scene* HelloWorld::createScene()
 {
@@ -75,6 +78,8 @@ bool HelloWorld::init()
     physicalcontact->onContactSeparate = CC_CALLBACK_1(HelloWorld::onContactSeparate, this);
 
     director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(physicalcontact, this);
+
+    //自动清理Item
 
     return true;
 }
@@ -234,14 +239,14 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         }
         case EventKeyboard::KeyCode::KEY_B:            //背包
         {
-            if (BagNumber & 1)                         //进入背包
+            if (BagNumber & 1)                         //离开背包
             {
                 auto bag = this->getChildByTag(Bag::BagTag);
                
                 this->removeChildByTag(Bag::BagTag,true);
                 IsBag = false;
             }
-            else                                       //离开背包
+            else                                       //进入背包
             {
                 auto bag = Bag::createLayer();
                 bag->setTag(Bag::BagTag);
@@ -253,14 +258,20 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         }
         case EventKeyboard::KeyCode::KEY_Q:           //养动物
         {
-            AddAnimal();
+            lastKeycode = keyCode;
             break;
         }
         case EventKeyboard::KeyCode::KEY_1:          //延伸键
         {
             if (lastKeycode == EventKeyboard::KeyCode::KEY_P)  //按了P以后
             {
-                AddPlant("monster.png");
+                auto plant = AddPlant("monster.png");
+                plant->setType(Object::ObjectType::Plant);
+            }
+            if (lastKeycode == EventKeyboard::KeyCode::KEY_Q)
+            {
+                auto animal = AddAnimal("Animal/Sheep-turntorwards.png");
+                animal->setType(Object::ObjectType::Sheep);
             }
             break;
         }
@@ -268,7 +279,13 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if (lastKeycode == EventKeyboard::KeyCode::KEY_P)  //按了P以后
             {
-                AddPlant("player.png");
+                auto plant = AddPlant("player.png");
+                plant->setType(Object::ObjectType::Plant);
+            }
+            if (lastKeycode == EventKeyboard::KeyCode::KEY_Q)
+            {
+                auto animal = AddAnimal("player.png");
+                animal->setType(Object::ObjectType::Chicken);
             }
             break;
         }
@@ -280,10 +297,18 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
                 {
                     switch (collidedSprite->getType())
                     {
-                        case Object::ObjectType::Animal:
+                        case Object::ObjectType::Sheep:   //杀羊
                         {
                             collidedSprite->removeFromParent();
                             collidedSprite = nullptr;
+                            ItemVec::AddItem(ItemType::Sheep);
+                            break;
+                        }
+                        case Object::ObjectType::Chicken: //杀鸡
+                        {
+                            collidedSprite->removeFromParent();
+                            collidedSprite = nullptr;
+                            ItemVec::AddItem(ItemType::Chicken);
                             break;
                         }
                         case Object::ObjectType::Plant:
@@ -372,14 +397,12 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
         {
             IsCollide = true;
             collidedSprite = (Object*)ShapeB->getNode();
-            collidedSprite->setType(Object::ObjectType::Animal);
             break;
         }
         case (int)PhysicsCategory::Plant:
         {
             IsCollide = true;
             collidedSprite = (Object*)ShapeB->getNode();
-            collidedSprite->setType(Object::ObjectType::Plant);
             break;
         }
         break;
@@ -406,7 +429,7 @@ bool HelloWorld::onContactSeparate(PhysicsContact& contact)
     return true;
 }
 //种植植物
-void HelloWorld::AddPlant(const std::string & filepath)
+Plant* HelloWorld::AddPlant(const std::string & filepath)
 {
     auto position = hero->getPosition();
     auto plant = Plant::create(filepath);
@@ -423,18 +446,19 @@ void HelloWorld::AddPlant(const std::string & filepath)
     this->addChild(plant, 2);
     plant->IsPlanted();
     plant->scheduleUpdate();
+    return plant;
 }
 
-void HelloWorld::AddAnimal()
+Object* HelloWorld::AddAnimal(const std::string& filepath)
 {
     //auto visblieSize = Director::getInstance()->getVisibleSize();
     //auto origin = Director::getInstance()->getVisibleOrigin();
 
 
-    auto animal = Object::create("monster.png");
+    auto animal = Object::create(filepath);
     animal->setPosition(hero->getPosition());
+    animal->setContentSize(AnimalSize);
     auto animalbody = PhysicsBody::createBox(animal->getContentSize());
-
     animalbody->setGravityEnable(false);
     animalbody->setDynamic(false);
     animalbody->setCategoryBitmask((int)PhysicsCategory::Animal);
@@ -444,7 +468,7 @@ void HelloWorld::AddAnimal()
 
     this->addChild(animal, 3);
 
-
+    return animal;
     //auto sequence = Sequence::create(MoveBy::create(10.0f, Vec2(-500, 0)),MoveBy::create(10.0f,Vec2(500,0)), nullptr);
     //auto reAction = RepeatForever::create(sequence);
     //animal->runAction(reAction);

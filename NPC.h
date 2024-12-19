@@ -13,14 +13,15 @@ enum class PhysicsCategory
 	Animal = (1 << 2),
 	Plant = (1 << 3)
 };
-
+//作为所有NPC，动物，植物的父类，继承自Sprite类
 class Object : public cocos2d::Sprite 
 {
 public:
 	enum class ObjectType
 	{
 		Plant,
-		Animal
+		Sheep,
+		Chicken
 	};
 	static Object* create(const std::string& filepath);
 

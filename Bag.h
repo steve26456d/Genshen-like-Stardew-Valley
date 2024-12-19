@@ -7,7 +7,7 @@
 #ifndef _BAG_H_
 #define _BAG_H_
 #include<cocos2d.h>
-
+#include"Item.h"
 class Bag :public cocos2d::Layer
 {
 public:
@@ -22,13 +22,16 @@ public:
 
 	//Tag
 	static int BagTag;
-
 private:
 	cocos2d::Sprite* select_cell = nullptr;  //被选中的格子
+
+	//存储的物品集
 
 	static float BeginX;
 	static float EndX;
 	static float BeginY;
 	static float EndY;
+
+	const int _bag_order = 3;
 };
 #endif // !_BAG_H_

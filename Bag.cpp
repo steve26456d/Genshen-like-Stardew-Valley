@@ -3,6 +3,8 @@
 */
 
 #include"Bag.h"
+#include<cocos2d.h>
+#include<vector>
 USING_NS_CC;
 
 float Bag::BeginX = 0;
@@ -10,6 +12,8 @@ float Bag::EndX = 0;
 float Bag::BeginY = 0;
 float Bag::EndY = 0;
 int Bag::BagTag = 111;
+
+int BagLine = 10;
 
 Layer* Bag::createLayer()
 {
@@ -41,9 +45,61 @@ bool Bag::init()
 		for(float Y = BeginY;Y <= EndY;Y += select_cell->getContentSize().height)
 		    AddCell(Vec2(X, Y));
 	
-	this->addChild(select_cell,3);
+	this->addChild(select_cell,_bag_order);
 
-
+	auto selectSize = select_cell->getContentSize();
+	//加载存放的物品
+	int turn = 0;
+	for (size_t it = 0; it < ItemVec::_vec.size(); it++)
+	{
+		int itemCount = 0;
+		Sprite* sprite;
+		switch (ItemVec::_vec[it])
+		{
+			case ItemType::Chicken:
+			{
+				sprite = Sprite::create("object/Chicken.png");
+				itemCount = ItemNumber::Chicken;
+			}
+			break;
+			case ItemType::Dish:
+			{
+				itemCount = ItemNumber::Dish;
+			}
+				break;
+			case ItemType::Fish:
+			{
+				sprite = Sprite::create("object/Fish.png");
+				itemCount = ItemNumber::Fish;
+			}
+			break;
+			case ItemType::Mineral:
+			{
+				sprite = Sprite::create("object/Mineral.png");
+				itemCount = ItemNumber::Mineral;
+			}
+				break;
+			case ItemType::Money:
+				itemCount = ItemNumber::Money;
+				break;
+			case ItemType::Sheep:
+			{
+				sprite = Sprite::create("object/Sheep.png");
+				itemCount = ItemNumber::Sheep;
+			}
+				break;
+			default:
+				break;
+		}
+		sprite->setPosition(BeginX + (turn % BagLine) * selectSize.width * 0.95, BeginY + (turn / BagLine) * selectSize.height * 0.95);
+		sprite->setScale(selectSize.width / sprite->getContentSize().width - 0.05);
+		this->addChild(sprite, _bag_order + 1);
+		auto label = Label::createWithTTF(std::to_string(itemCount), "fonts/Marker Felt.ttf", 50);
+		label->setTextColor(Color4B::BLACK);
+		label->setPosition(sprite->getPosition());
+		this->addChild(label, _bag_order + 1);
+		turn++;
+	}
 	//创建背包的键盘响应
 
 	auto bagKey = EventListenerKeyboard::create();
@@ -59,7 +115,7 @@ void Bag::AddCell(Vec2 Pos)
 	auto sprite = Sprite::create("bag/Inventory_Slot.png");
 	sprite->setScale(4.0);
 	sprite->setPosition(Pos);
-	this->addChild(sprite, 3);
+	this->addChild(sprite, _bag_order);
 }
 
 void Bag::onKeyPressed(EventKeyboard::KeyCode keycode,Event* event)
