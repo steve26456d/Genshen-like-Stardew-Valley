@@ -5,18 +5,16 @@ USING_NS_CC;
 std::vector<ItemType> ItemVec::_vec;
 std::set<ItemType> ItemVec::_set;
 
+//在命名空间ItemNumber中记录每一种物品的数量
 int ItemNumber::Chicken = 0;
 int ItemNumber::Dish = 0;
 int ItemNumber::Fish = 0;
 int ItemNumber::Mineral = 0;
 int ItemNumber::Money = 0;
 int ItemNumber::Sheep = 0;
-//在命名空间ItemNumber中记录每一种物品的数量
 
 
-//根据Item::Type创建Item精灵形象
-
-
+//在ItemVec中添加Item
 bool ItemVec::AddItem(const ItemType& itemType)
 {
 

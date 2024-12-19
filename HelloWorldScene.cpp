@@ -1,3 +1,7 @@
+/*
+* 主场景函数
+* 作用：农村场景函数，作为其他场景的中转以及种植养殖的所在地
+*/
 #include "HelloWorldScene.h"
 #include"hero.h"
 #include"OtherScene.h"
@@ -13,7 +17,7 @@ Sprite* HelloWorld::hero = nullptr;
 Object* HelloWorld::collidedSprite = nullptr;
 bool HelloWorld::IsCollide = false;
 
-const Size AnimalSize = { 60,60 };
+const Size AnimalSize = { 60,60 };  //设置动物大小
 
 Scene* HelloWorld::createScene()
 {
@@ -58,7 +62,6 @@ bool HelloWorld::init()
     auto herobody = PhysicsBody::createBox(hero->getContentSize());
     herobody->setGravityEnable(false);
     herobody->setDynamic(false);
-
     //设置位掩码
     herobody->setCategoryBitmask((int)PhysicsCategory::Hero);
     herobody->setContactTestBitmask(0xfffffff);
@@ -79,12 +82,11 @@ bool HelloWorld::init()
 
     director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(physicalcontact, this);
 
-    //自动清理Item
-
     return true;
 }
 
-void HelloWorld::update(float delta)      //场景帧更新函数
+//场景帧更新函数
+void HelloWorld::update(float delta)   
 {
     auto director = Director::getInstance();
    
@@ -126,7 +128,7 @@ void HelloWorld::update(float delta)      //场景帧更新函数
         hero->stopAllActions();
     }
 }
-
+//换季函数
 void HelloWorld::ChangeSeason(float delta)
 {
     static int Time = 0;
@@ -152,12 +154,12 @@ void HelloWorld::ChangeSeason(float delta)
         map = newmap;
     }
 }
-
+//
 void HelloWorld::onExit()
 {
     Layer::onExit();
 }
-
+//键盘响应函数
 void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
     static bool IsBag = false;        //检测是否为背包界面，如果为背包界面，人物就无法移动
@@ -256,7 +258,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
             BagNumber++;
             break;
         }
-        case EventKeyboard::KeyCode::KEY_Q:           //养动物
+        case EventKeyboard::KeyCode::KEY_Q:           //养动物，演示用，正式版本不会设置专门产生动物的按键
         {
             lastKeycode = keyCode;
             break;
@@ -311,7 +313,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
                             ItemVec::AddItem(ItemType::Chicken);
                             break;
                         }
-                        case Object::ObjectType::Plant:
+                        case Object::ObjectType::Plant:  //采植物或者催熟植物
                         {
                             auto plant = (Plant*)collidedSprite;
                             switch(plant->getState())
@@ -341,7 +343,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
             break;
     }
 }
-
+//键盘松开的响应函数
 void HelloWorld::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
     switch (keyCode)
@@ -386,7 +388,7 @@ void HelloWorld::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d:
             break;
     }
 }
-
+//碰撞函数
 bool HelloWorld::onContactBegin(PhysicsContact& contact)
 {
     auto ShapeA = contact.getShapeA()->getBody();
@@ -409,7 +411,7 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
     }
     return true;
 }
-
+//碰撞体分离函数
 bool HelloWorld::onContactSeparate(PhysicsContact& contact)
 {
     auto ShapeA = contact.getShapeA()->getBody();
@@ -448,7 +450,7 @@ Plant* HelloWorld::AddPlant(const std::string & filepath)
     plant->scheduleUpdate();
     return plant;
 }
-
+//添加动物
 Object* HelloWorld::AddAnimal(const std::string& filepath)
 {
     //auto visblieSize = Director::getInstance()->getVisibleSize();
@@ -473,7 +475,3 @@ Object* HelloWorld::AddAnimal(const std::string& filepath)
     //auto reAction = RepeatForever::create(sequence);
     //animal->runAction(reAction);
 }
-
-
-
-

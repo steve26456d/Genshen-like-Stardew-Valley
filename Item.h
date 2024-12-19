@@ -36,13 +36,13 @@ public:
 	
 	friend class Bag;
 private:
-	static std::vector<ItemType> _vec;
-	static std::set<ItemType> _set;
+	static std::vector<ItemType> _vec;  //顺序记录存放的物品
+	static std::set<ItemType> _set;     //记录这个物品是否存在
 	ItemVec(){}
 };
 
 
-
+//物品数量
 namespace ItemNumber
 {
 	extern int Chicken;
