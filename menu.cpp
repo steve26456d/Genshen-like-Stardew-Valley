@@ -146,6 +146,9 @@ bool GameMenu::init()
 						AddLabel(new_skill_label, skillstring.str(), label_skill->getPosition(), 60);
 						label_skill->removeFromParent();
 						label_skill = new_skill_label;
+						//³ö»õ¸ÅÂÊ
+						if (FishingProMaxPoint > 2)
+							FishingProMaxPoint--;
 					}
 					break;
 				}

@@ -7,6 +7,16 @@
 class HelloWorld : public cocos2d::Layer
 {
 public:
+    enum class FaceDirection
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        None
+    };
+
+
     //´´½¨³¡¾°º¯Êý
     static cocos2d::Scene* createScene();
 
@@ -48,6 +58,12 @@ private:
 
     //ÊÇ·ñÅö×²¼ì²â
     static bool IsCollide;
+
+    //µöÓã¼ì²â
+    static bool IsFishing;
+
+    FaceDirection _direction;
+    
 };
 
 #endif // __HELLOWORLD_SCENE_H__

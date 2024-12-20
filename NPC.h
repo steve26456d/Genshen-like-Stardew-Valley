@@ -11,7 +11,8 @@ enum class PhysicsCategory
 	Hero = (1 << 0),
 	NPC = (1 << 1),
 	Animal = (1 << 2),
-	Plant = (1 << 3)
+	Plant = (1 << 3),
+	FishPoint = (1 << 4)
 };
 //作为所有NPC，动物，植物的父类，继承自Sprite类
 class Object : public cocos2d::Sprite 

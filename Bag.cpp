@@ -12,9 +12,8 @@ float Bag::EndX = 0;
 float Bag::BeginY = 0;
 float Bag::EndY = 0;
 int Bag::BagTag = 111;
-
 int BagLine = 10;
-
+int FishingProMaxPoint = 10;
 Layer* Bag::createLayer()
 {
 	return Bag::create();
@@ -107,6 +106,10 @@ bool Bag::init()
 	bagKey->onKeyPressed = CC_CALLBACK_2(Bag::onKeyPressed, this);
 
 	director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(bagKey, this);
+
+	auto Esclabel = Label::createWithTTF("Press 'B' to exit Bag", "fonts/arial.ttf", 100);
+	Esclabel->setPosition(BeginX / 2 + EndX / 2, EndY + 100);
+	this->addChild(Esclabel, 3);
 	return true;
 }
 

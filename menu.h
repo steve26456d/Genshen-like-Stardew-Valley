@@ -22,4 +22,5 @@ private:
 	cocos2d::Label* label_skill = nullptr;
 };
 
+extern int FishingProMaxPoint;
 #endif // !MENU_H

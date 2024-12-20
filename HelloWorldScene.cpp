@@ -16,6 +16,7 @@ cocos2d::TMXTiledMap* HelloWorld::map = nullptr;
 Sprite* HelloWorld::hero = nullptr;
 Object* HelloWorld::collidedSprite = nullptr;
 bool HelloWorld::IsCollide = false;
+bool HelloWorld::IsFishing = false;
 
 const Size AnimalSize = { 60,60 };  //设置动物大小
 
@@ -34,7 +35,7 @@ bool HelloWorld::init()
 {
     
     using namespace cocos2d;
-   
+
     this->scheduleUpdate();
     //this->schedule(SEL_SCHEDULE(&HelloWorld::ChangeSeason),6.0f,kRepeatForever,0.0f);
     
@@ -47,11 +48,30 @@ bool HelloWorld::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     //初始地图
     if (!map)
-        map = TMXTiledMap::create("home map/home.tmx");                  //加载瓦片地图,初始地图 
+        map = TMXTiledMap::create("home map/home (2).tmx");                  //加载瓦片地图,初始地图 
   
     auto director = Director::getInstance();                       //获得导演
-    map->setScale(director->getContentScaleFactor() * 2);              //调整大小，适配屏幕
-    
+    //map->setScale();              //调整大小，适配屏幕
+    map->setAnchorPoint(Vec2(0, 0));
+    //设置图块层
+    auto objectmap = map->getObjectGroup("Fish");
+    auto mapFish = objectmap->getObject("Fish");
+
+    //获取对象的属性
+    float x = mapFish["x"].asFloat();
+    float y = mapFish["y"].asFloat();
+    float width = mapFish["width"].asFloat();
+    float height = mapFish["height"].asFloat();
+    //设置物理体
+    auto body = PhysicsBody::createBox(Size(width, height));
+    body->setDynamic(false); // 设置为静态物体
+    body->setCategoryBitmask((int)PhysicsCategory::FishPoint);
+    body->setContactTestBitmask((int)PhysicsCategory::Hero);
+    auto node = Node::create();
+    node->setPosition(mapFish["x"].asFloat() + width / 2, y + height / 2); // 设置节点的位置（中心对齐）
+    node->setPhysicsBody(body);
+    this->addChild(node, 1);
+
     //加载地图
     this->addChild(map, 1);
 
@@ -172,6 +192,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
+                _direction = FaceDirection::Up;
                 auto action = MoveBy::create(0.4f, Vec2(0, 4 * HERO_SPEED));
                 auto animationaction = getanimation("qilunuo", "walk", "up", 4, 0.1);
                 auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
@@ -185,6 +206,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
+                _direction = FaceDirection::Down;
                 auto action = MoveBy::create(0.4f, Vec2(0, -4 * HERO_SPEED));
                 auto animationaction = getanimation("qilunuo", "walk", "down", 4, 0.1);
                 auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
@@ -199,6 +221,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
+                _direction = FaceDirection::Left;
                 auto action = MoveBy::create(0.4f, Vec2(-4 * HERO_SPEED, 0));
                 auto animationaction = getanimation("qilunuo", "walk", "left", 4, 0.1);
                 auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
@@ -212,6 +235,7 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if(!IsBag)
             {
+                _direction = FaceDirection::Right;
                 auto action = MoveBy::create(0.4f, Vec2(4 * HERO_SPEED, 0));
                 auto animationaction = getanimation("qilunuo", "walk", "right", 4, 0.1);
                 auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
@@ -295,8 +319,40 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         {
             if (!IsBag && IsCollide)
             {
+
+                switch(_direction)
+                {
+                    case FaceDirection::Left:
+                    {
+                        auto animationaction = getanimation("qilunuo", "work", "left", 2, 0.1);
+                        hero->runAction(animationaction);
+                    }
+                    break;
+                    case FaceDirection::Down:
+                    {
+                        auto animationaction = getanimation("qilunuo", "work", "down", 2, 0.1);
+                        hero->runAction(animationaction);
+                    }
+                    break;
+                    case FaceDirection::Right:
+                    {
+                        auto animationaction = getanimation("qilunuo", "work", "right", 2, 0.1);
+                        hero->runAction(animationaction);
+                    }
+                    break;
+                    case FaceDirection::Up:
+                    {
+                        auto animationaction = getanimation("qilunuo", "work", "up", 2, 0.1);
+                        hero->runAction(animationaction);
+                    }
+                    break;
+                    default:
+                        break;
+                }
+
                 if (collidedSprite)
                 {
+
                     switch (collidedSprite->getType())
                     {
                         case Object::ObjectType::Sheep:   //杀羊
@@ -334,6 +390,45 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
                             }
                             break;
                         }
+                    }
+                }
+                else if (IsFishing)
+                {
+                    std::random_device rd;
+                    unsigned int seed = rd();
+
+                    // 使用 std::mt19937 生成随机数
+                    std::mt19937 generator(seed);
+
+                    // 生成一个随机数
+                    std::uniform_int_distribution<int> distribution(1, FishingProMaxPoint); // 生成 1 到 100 之间的随机数
+                    int randomNumber = distribution(generator);
+                    if (randomNumber == 1)
+                    {
+                        auto label = Label::createWithTTF("Success", "fonts/Marker Felt.ttf", 50);
+                        label->setPosition(hero->getPositionX(), hero->getPositionY() + 50);
+                        ItemVec::AddItem(ItemType::Fish);
+
+                        auto delay = DelayTime::create(.5f); // 延迟 1 秒
+                        auto remove = RemoveSelf::create();   // 移除自身
+                        auto sequence = Sequence::create(delay, remove, nullptr);
+
+                        // 将动作序列应用到 Label 上
+                        label->runAction(sequence);
+                        this->addChild(label, 3);
+                    }
+                    else
+                    {
+                        auto label = Label::createWithTTF("Fail", "fonts/Marker Felt.ttf", 50);
+                        label->setPosition(hero->getPositionX(), hero->getPositionY() + 50);
+
+                        auto delay = DelayTime::create(.5f); // 延迟 1 秒
+                        auto remove = RemoveSelf::create();   // 移除自身
+                        auto sequence = Sequence::create(delay, remove, nullptr);
+
+                        // 将动作序列应用到 Label 上
+                        label->runAction(sequence);
+                        this->addChild(label, 3);
                     }
                 }
             }
@@ -407,7 +502,15 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
             collidedSprite = (Object*)ShapeB->getNode();
             break;
         }
-        break;
+        case (int)PhysicsCategory::FishPoint:
+        {
+            IsCollide = true;
+            IsFishing = true;
+            collidedSprite = nullptr;
+            break;
+        }
+        default:
+            break;
     }
     return true;
 }
@@ -423,6 +526,12 @@ bool HelloWorld::onContactSeparate(PhysicsContact& contact)
         {
             IsCollide = false;
             collidedSprite = nullptr;
+            break;
+        }
+        case (int)PhysicsCategory::FishPoint:
+        {
+            IsCollide = false;
+            IsFishing = false;
             break;
         }
         default:
@@ -456,10 +565,9 @@ Object* HelloWorld::AddAnimal(const std::string& filepath)
     //auto visblieSize = Director::getInstance()->getVisibleSize();
     //auto origin = Director::getInstance()->getVisibleOrigin();
 
-
     auto animal = Object::create(filepath);
     animal->setPosition(hero->getPosition());
-    animal->setContentSize(AnimalSize);
+    //animal->setContentSize(AnimalSize);
     auto animalbody = PhysicsBody::createBox(animal->getContentSize());
     animalbody->setGravityEnable(false);
     animalbody->setDynamic(false);
@@ -471,7 +579,4 @@ Object* HelloWorld::AddAnimal(const std::string& filepath)
     this->addChild(animal, 3);
 
     return animal;
-    //auto sequence = Sequence::create(MoveBy::create(10.0f, Vec2(-500, 0)),MoveBy::create(10.0f,Vec2(500,0)), nullptr);
-    //auto reAction = RepeatForever::create(sequence);
-    //animal->runAction(reAction);
 }
