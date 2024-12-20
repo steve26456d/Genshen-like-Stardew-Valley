@@ -16,7 +16,6 @@ Animate* getanimation(std::string who, std::string animationname, std::string di
     }
     auto animation = Animation::createWithSpriteFrames(animFrames, frametime);
     auto animate = Animate::create(animation);
-    initframe("sheep", "walk", "down");
     return animate;
 
 }

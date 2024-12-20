@@ -17,6 +17,7 @@ Sprite* HelloWorld::hero = nullptr;
 Object* HelloWorld::collidedSprite = nullptr;
 bool HelloWorld::IsCollide = false;
 bool HelloWorld::IsFishing = false;
+bool HelloWorld::IsBag = false;
 
 const Size AnimalSize = { 60,60 };  //设置动物大小
 
@@ -53,41 +54,25 @@ bool HelloWorld::init()
     auto director = Director::getInstance();                       //获得导演
     //map->setScale();              //调整大小，适配屏幕
     map->setAnchorPoint(Vec2(0, 0));
+
     //设置图块层
-    auto objectmap = map->getObjectGroup("Fish");
-    auto mapFish = objectmap->getObject("Fish");
-
-    //获取对象的属性
-    float x = mapFish["x"].asFloat();
-    float y = mapFish["y"].asFloat();
-    float width = mapFish["width"].asFloat();
-    float height = mapFish["height"].asFloat();
-    //设置物理体
-    auto body = PhysicsBody::createBox(Size(width, height));
-    body->setDynamic(false); // 设置为静态物体
-    body->setCategoryBitmask((int)PhysicsCategory::FishPoint);
-    body->setContactTestBitmask((int)PhysicsCategory::Hero);
-    auto node = Node::create();
-    node->setPosition(mapFish["x"].asFloat() + width / 2, y + height / 2); // 设置节点的位置（中心对齐）
-    node->setPhysicsBody(body);
-    this->addChild(node, 1);
-
+   
+    initObject("Fish", "Fish");
+    initObject("House", "House");
+    initObject("Obstacle", "Canal");
+    initObject("Obstacle", "Handrail1");
+    initObject("Obstacle", "Handrail2");
+    initObject("Obstacle", "Handrail3");
+    initObject("Obstacle", "Handrail4");
+    initObject("Obstacle", "Tree1");
+    initObject("Obstacle", "Tree2");
+    initObject("Obstacle", "Tree3");
+    initObject("Obstacle", "Tree4");
     //加载地图
     this->addChild(map, 1);
 
-    //放置主角
-    hero = initframe("qilunuo", "walk", "down");
-    hero->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
-    this->addChild(hero, 3);
-    auto herobody = PhysicsBody::createBox(hero->getContentSize());
-    herobody->setGravityEnable(false);
-    herobody->setDynamic(false);
-    //设置位掩码
-    herobody->setCategoryBitmask((int)PhysicsCategory::Hero);
-    herobody->setContactTestBitmask(0xfffffff);
-    herobody->setCollisionBitmask(0);
-    hero->setPhysicsBody(herobody);
-    hero->stopAllActions();
+    //初始化英雄
+    initHero();
 
     //键盘监听
     auto listenerKeyboard = cocos2d::EventListenerKeyboard::create();
@@ -182,7 +167,6 @@ void HelloWorld::onExit()
 //键盘响应函数
 void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
-    static bool IsBag = false;        //检测是否为背包界面，如果为背包界面，人物就无法移动
     static int BagNumber = 0;         //当BagNumber为奇数时，进入背包，当BagNumber为偶数时，离开背包
     static EventKeyboard::KeyCode lastKeycode = EventKeyboard::KeyCode::KEY_0;
     switch (keyCode)
@@ -190,58 +174,30 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         case EventKeyboard::KeyCode::KEY_W:
         case EventKeyboard::KeyCode::KEY_UP_ARROW:   //主角向上移动
         {
-            if(!IsBag)
-            {
-                _direction = FaceDirection::Up;
-                auto action = MoveBy::create(0.4f, Vec2(0, 4 * HERO_SPEED));
-                auto animationaction = getanimation("qilunuo", "walk", "up", 4, 0.1);
-                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
-                repeat->setTag(static_cast<int>(MyActionTag::MyGoUp));
-                this->hero->runAction(repeat);
-            }
+             MoveHero(FaceDirection::Up);
+            _direction = FaceDirection::Up;
+        
             break;
         }
         case EventKeyboard::KeyCode::KEY_DOWN_ARROW: //主角向下移动
         case EventKeyboard::KeyCode::KEY_S:
         {
-            if(!IsBag)
-            {
-                _direction = FaceDirection::Down;
-                auto action = MoveBy::create(0.4f, Vec2(0, -4 * HERO_SPEED));
-                auto animationaction = getanimation("qilunuo", "walk", "down", 4, 0.1);
-                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
-                repeat->setTag(static_cast<int>(MyActionTag::MyGoDown));
-                this->hero->runAction(repeat);
-            }
-
+            MoveHero(FaceDirection::Down);
+            _direction = FaceDirection::Down;
             break;
         }
         case EventKeyboard::KeyCode::KEY_A:
         case EventKeyboard::KeyCode::KEY_LEFT_ARROW: //主角向左移动
         {
-            if(!IsBag)
-            {
-                _direction = FaceDirection::Left;
-                auto action = MoveBy::create(0.4f, Vec2(-4 * HERO_SPEED, 0));
-                auto animationaction = getanimation("qilunuo", "walk", "left", 4, 0.1);
-                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
-                repeat->setTag(static_cast<int>(MyActionTag::MyGoLeft));
-                this->hero->runAction(repeat);
-            }
+            MoveHero(FaceDirection::Left);
+            _direction = FaceDirection::Left;
             break;
         }
         case EventKeyboard::KeyCode::KEY_D:
         case EventKeyboard::KeyCode::KEY_RIGHT_ARROW: //主角向右移动
         {
-            if(!IsBag)
-            {
-                _direction = FaceDirection::Right;
-                auto action = MoveBy::create(0.4f, Vec2(4 * HERO_SPEED, 0));
-                auto animationaction = getanimation("qilunuo", "walk", "right", 4, 0.1);
-                auto repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
-                repeat->setTag(static_cast<int>(MyActionTag::MyGoRight));
-                this->hero->runAction(repeat);
-            }
+            MoveHero(FaceDirection::Right);
+            _direction = FaceDirection::Right;
             break;
         }
         case EventKeyboard::KeyCode::KEY_ESCAPE:       //退出程序
@@ -488,6 +444,7 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
 {
     auto ShapeA = contact.getShapeA()->getBody();
     auto ShapeB = contact.getShapeB()->getBody();
+    ShapeA->getNode()->stopAllActions();
     switch (ShapeB->getCategoryBitmask())
     {
         case (int)PhysicsCategory::Animal:
@@ -579,4 +536,134 @@ Object* HelloWorld::AddAnimal(const std::string& filepath)
     this->addChild(animal, 3);
 
     return animal;
+}
+
+void HelloWorld::MoveHero(FaceDirection direction)
+{
+    if (IsBag)
+        return;
+
+    if (IsCollide)
+    {
+        MoveBy* actionaway = nullptr;
+        switch (_direction)
+        {
+            case FaceDirection::Down:
+            {
+                actionaway = MoveBy::create(0, Vec2(0, 10));
+            }
+            break;
+            case FaceDirection::Up:
+            {
+                actionaway = MoveBy::create(0, Vec2(0, -10));
+            }
+            break;
+            case FaceDirection::Left:
+            {
+                actionaway = MoveBy::create(0, Vec2(10, 0));
+            }
+            break;
+            case FaceDirection::Right:
+            {
+                actionaway = MoveBy::create(0, Vec2(-10, 0));
+            }
+            break;
+        }
+        if(actionaway)
+            hero->runAction(actionaway);
+        return;
+    }
+
+    RepeatForever* repeat = nullptr;
+    Animate* animationaction = nullptr;
+    MoveBy* action = nullptr;
+    switch (direction)
+    {
+        case FaceDirection::Up:
+        {
+            _direction = FaceDirection::Up;
+            action = MoveBy::create(0.4f, Vec2(0, 4 * HERO_SPEED));
+            animationaction = getanimation("qilunuo", "walk", "up", 4, 0.1);
+            repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
+            repeat->setTag(static_cast<int>(MyActionTag::MyGoUp));
+        }
+        break;
+        case FaceDirection::Down:
+        {
+            _direction = FaceDirection::Down;
+            action = MoveBy::create(0.4f, Vec2(0, -4 * HERO_SPEED));
+            animationaction = getanimation("qilunuo", "walk", "down", 4, 0.1);
+            repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
+            repeat->setTag(static_cast<int>(MyActionTag::MyGoDown));
+        }
+        break;
+        case FaceDirection::Right:
+        {
+            
+            _direction = FaceDirection::Right;
+            action = MoveBy::create(0.4f, Vec2(4 * HERO_SPEED, 0));
+            animationaction = getanimation("qilunuo", "walk", "right", 4, 0.1);
+            repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
+            repeat->setTag(static_cast<int>(MyActionTag::MyGoRight));
+        }
+        break;
+        case FaceDirection::Left:
+        {
+            _direction = FaceDirection::Left;
+            action = MoveBy::create(0.4f, Vec2(-4 * HERO_SPEED, 0));
+            animationaction = getanimation("qilunuo", "walk", "left", 4, 0.1);
+            repeat = RepeatForever::create(Spawn::create(action, animationaction, nullptr));
+            repeat->setTag(static_cast<int>(MyActionTag::MyGoLeft));
+        }
+        break;
+        default:
+            break;
+    }
+    if(repeat)
+        hero->runAction(repeat);
+    return;
+}
+
+void HelloWorld::initObject(const std::string & objectlayer,const std::string& objectname)
+{
+    //设置图块层
+    auto maplayer = map->getObjectGroup(objectlayer);
+    auto mapobject = maplayer->getObject(objectname);
+   
+       
+    //获取对象的属性
+    float x = mapobject["x"].asFloat();
+    float y = mapobject["y"].asFloat();
+    float width = mapobject["width"].asFloat();
+    float height = mapobject["height"].asFloat();
+        //设置物理体
+    auto body = PhysicsBody::createBox(Size(width, height));
+    body->setDynamic(false); // 设置为静态物体
+    body->setCategoryBitmask((int)PhysicsCategory::FishPoint);
+    body->setContactTestBitmask((int)PhysicsCategory::Hero);
+    auto node = Node::create();
+    node->setPosition(mapobject["x"].asFloat() + width / 2, y + height / 2); // 设置节点的位置（中心对齐）
+    node->setPhysicsBody(body);
+    this->addChild(node, 1);
+}
+
+//初始化主角
+void HelloWorld::initHero()
+{
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+    hero = initframe("qilunuo", "walk", "down");
+    hero->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
+    this->addChild(hero, 3);
+    auto herobody = PhysicsBody::createBox(Size(hero->getContentSize().width / 2 , hero->getContentSize().height / 3));
+    herobody->setPositionOffset(Vec2(0, -hero->getContentSize().height * 0.25f));
+    herobody->setGravityEnable(false);
+    herobody->setDynamic(false);
+
+    //设置位掩码
+    herobody->setCategoryBitmask((int)PhysicsCategory::Hero);
+    herobody->setContactTestBitmask(0xfffffff);
+    herobody->setCollisionBitmask(0);
+    hero->setPhysicsBody(herobody);
+    hero->stopAllActions();
 }

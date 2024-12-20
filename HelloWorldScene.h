@@ -37,12 +37,18 @@ public:
 
     //换季函数
     void ChangeSeason(float delta);              
-
     virtual void onExit();                  
     
     Plant* AddPlant(const std::string& filepath);                               //添加植物
     Object* AddAnimal(const std::string& filepath);                              //添加动物
-    // implement the "static create()" method manually
+  
+
+    //Hero的方法
+    void MoveHero(FaceDirection);                //Hero移动
+    void initHero();
+
+    //Object层
+    void initObject(const std::string& objectlayer,const std::string& objectname);
 
     //生成HelloWorld::create()
     CREATE_FUNC(HelloWorld);
@@ -61,6 +67,9 @@ private:
 
     //钓鱼检测
     static bool IsFishing;
+
+    //背包检测
+    static bool IsBag;
 
     FaceDirection _direction;
     

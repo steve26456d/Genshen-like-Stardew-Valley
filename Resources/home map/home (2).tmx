@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="11">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="23">
  <tileset firstgid="1" source="homemapsource1.tsx"/>
  <tileset firstgid="1921" source="httpsconfluence.atlassian.comget-started-with-sourcetreeinstall-sourcetree-847359094.html.tsx"/>
  <layer id="1" name="Layer2" width="64" height="36">
   <data encoding="base64" compression="zlib">
-   eJzt2LlOw0AQgOFlWyqgIhziSEHtColT4giKuB6LFwBRpqCEMi9BZ0QEnXkUJiIrrUYz61l7TdbHSH+BY6x8tmM70UqpNyiFlqDlSFuBPqBh4LTlX4V6kbbW+Tu/wLMOoA2rLV3enzneV9HXivQEPTrq6z//phX2L6Ca5u8j/56m3XXzm/PfHuM2x5by73d+p/+rwjJmeY/4O4T/AKyH0BF0DJ1Apy06/meAOYcuoEtoAF21zH8N3UC30B107/CrhvlNCbGMsnf++j3/Uf6EiPu8N9GPbXl+e6b+8cy/De1E2m4gPx496x2azKFPVN66VfnrEB7s10I/t73pDJnloUdqflAyv73NBG3D3j95+7TscPsPrmEjO+n2nh2vGb8xcv6888ncI6WW/xyp387ld430numzbtl9yPnt7/2Un4oa6r0vMstd/8OtX8Y/vS9TfpedO9Y+fpfHZ11qXjzDfokdzySQ33dfUfPq2SjHLn3OSJjlVfm5xp5ht21Plf81Do/r98QYs52U33eq/P1L0ncBd0h/Nud+kA9/XlzXd+wvMjH5qeuF1F90YvVLnl/TEu4Y/b41yW+OueTYq4b6pee+mab5fb6ztsnPTQj/L3stYe8=
+   eJzt2LlOw0AQgOFlWyqgIhziSEHtColT4giKuB6LFwBRpqCEMi9BZ0QEnXkUxiIrrUYz61l7Q9bHSH+BY6x8tmM70UqpNyiFlqDlSFuBPqBh4LTlX4V6kbbW+Tu/wLMOoA2rLV3dnzneV9nXyvQEPTrq6z//phX2L6Ca5u8j/56m3XXzm/PfHuM2x5by73d+p/9rhmXM8h7xdwj/AVgPoSPoGDqBTlt0/M8Acw5dQJfQALpqmf8auoFuoTvo3uFXDfObEmIZZe/89Xv+o/wJEfd5b6If24r89uT+8dS/De1E2m4gPx497R2azKFPVNG6s/LXITzYr4V+bnv5DJnloUdqflAyv73NBG3D3j9F+7TqcPsPrmEjO+n2nh2vGb8xcv6i88ncI6WW/xyp387ld430numzbtV9yPnt7/2Un4oa6r0vMstd/8OtX8Wf35cpv8vOHWsfv8vjsy41L55hv8SOZxLI77uvqHn1bFRglz5nJMzyWfm5xp5ht21Plf81Do/r98QYs52U33d8f8/iftMq23cJd0h/Nud+kA9/XlzXd+wvMzH5qeuF1F92YvVLnl/TCu4Y/b41yW+OueTYq4b6pee+mab5fb6ztsnPTQj/LwhcYf8=
   </data>
  </layer>
  <objectgroup id="3" name="Fish">
-  <object id="10" name="Fish" x="350.666" y="866" width="65.333" height="63.3333"/>
+  <object id="10" name="Fish" x="-2.66733" y="866" width="1042.67" height="280.667"/>
+ </objectgroup>
+ <objectgroup id="5" name="Obstacle">
+  <object id="12" name="Canal" x="46.6667" y="262.667" width="1012" height="22.6667"/>
+  <object id="13" name="Handrail1" x="76" y="8" height="510.667"/>
+  <object id="14" x="86.6667" y="518.667"/>
+  <object id="15" x="92" y="521.333"/>
+  <object id="16" name="Handrail2" x="92" y="518.667" width="1304" height="21.3333"/>
+  <object id="17" name="Handrail3" x="1397.33" y="14.6667" width="14.6667" height="113.333"/>
+  <object id="18" name="Handrail4" x="1401.33" y="204" height="314.667"/>
+  <object id="19" name="Tree1" x="906.667" y="586.667" width="370.667" height="48"/>
+  <object id="20" name="Tree2" x="904" y="680" width="373.333" height="50.6667"/>
+  <object id="21" name="Tree3" x="908" y="780" width="370.667" height="50.6667"/>
+  <object id="22" name="Tree4" x="1286.67" y="588" width="25.3333" height="234.667"/>
+ </objectgroup>
+ <objectgroup id="4" name="House">
+  <object id="11" name="House" x="1633" y="97" width="189" height="252"/>
  </objectgroup>
  <layer id="2" name="Layer1" width="64" height="36">
   <data encoding="base64" compression="zlib">
-   eJztmMtOwkAUhofuGlbqymu8sHDdhZKoYKICMQo+li+gsPQBZOlD6A6j0R0+ij+hJxmPcy3lkqGTfCHMTNv55py2M42EEH0wACtgdUFZA+/gWoFcVO0mIsl/HWwsKJuFf+Hv4LMFoW2J3ej/HMWe/kPDuDK2PZmO0/EIHgxUorH/joTKvyQRmn+F+R8G4k/5H0mQN+Wyyr+a+pc0LLv/1xQZOvbLy/8ElafgDNRAHZwb/OPA4n+ByktwBRqgCVrMPxbh5v/I/wbcgjbogLsluv+JRFFX+Gf3XwRM/okCnS9/BoTgz/1kf/68U8X/JfXfA/sLykFGf1sO0LnewOcc+GDY+mb11+VBZEAupn7zgvzlWLrEPzK0lTVzY8sn21wSfU/uHfz59ZP0l9Z33NvVydef5k833q4YP2t86Dn40/jIN2H9YvHXg+p0cVPlQh6xN+1ddbj6y57c3xZHVbuqHIFjUNW0q64n58NorL75r/OX50jl77om0HmoSg3UwbmHPx9zHvmvcrfF2eRfZh78P5UGaILWBP6T5n8Wd5t/XsXF/9mTntC7vwr3dUaiqc8Sk0nwzf+u4hw0HwOHOZ9GTs4Teex5+Pt8z2rjhumU8v1G9u3pLb/L8/AfekD+PsfY+En96D3ps66Ytf80IH+Krcmfry1D87fFPXR/X0Ly5/sz0z4qVH+fvVSI/kX+z97/F8zZorU=
+   eJztmMtOAjEUhsvsJqzUldd4YeF6FkqiAokKxHh7LF9AYekDyNKH0B1Gozt8FH/CnKTW09swyKRMky+Etgz9zjnMtERCiAEYgiWwXFBWwBu4YJAbN24ikvxXwVpBWS/9S38Hnw0IbUpsR39jFHv6jwzryjj2aPqcjgdwb6AWTfy3JDj/ikRo/jXFfz8Qf6r/SIK8qZY5/3rqX9Gw6P6fM2TkOC8v/yN0HoMT0ABN0DL4x4Hl/xSdZ+ActEEHdBX/WIRb/2P/S3AFrsENuF2g3z+RMH2lf3b/ImDyTxh0vuo9IAR/1U/2V+93XP6fU/8dsFtQ9jL622qArvUKPubAu4JtblZ/XR1EBuRmmjcvyF/OpUv+I8NYVRMbWz3ZYkkMPLlz8Fe/P0lfaX+ners6+fpT/HTr7YnJvcaHvoM/rY98E2VeLH57UJ8ub1wt5JF709lVh6u/7Kn62/LIjXPtAByCumac+z65HsZr9a1/nb8cI87fdU+g8+BaAzRBy8NfXXMe9c+52/Js8q8qHup7am3QAd0p/Ket/yzuNv+8mov/kyd9oXd/Ee77jETTnyUn0+Bb/z3mGhSPoUPMZ1GT80Reex7+s/z/y4UvT2/5WZ6H/2jOfKd+9Jz02VeE5E+5Nfmre8vQ/G15D93fl5D81fOZ6RwVqr/PWSpE/7L+/9//B+irpOM=
   </data>
  </layer>
 </map>
