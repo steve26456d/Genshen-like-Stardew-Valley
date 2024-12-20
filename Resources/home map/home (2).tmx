@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="23">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="26">
  <tileset firstgid="1" source="homemapsource1.tsx"/>
  <tileset firstgid="1921" source="httpsconfluence.atlassian.comget-started-with-sourcetreeinstall-sourcetree-847359094.html.tsx"/>
  <layer id="1" name="Layer2" width="64" height="36">
@@ -22,6 +22,9 @@
   <object id="20" name="Tree2" x="904" y="680" width="373.333" height="50.6667"/>
   <object id="21" name="Tree3" x="908" y="780" width="370.667" height="50.6667"/>
   <object id="22" name="Tree4" x="1286.67" y="588" width="25.3333" height="234.667"/>
+  <object id="23" name="Handrail5" x="1506" y="780" height="372"/>
+  <object id="24" name="Handrail6" x="1536" y="774" width="306" height="22"/>
+  <object id="25" name="Handrail7" x="1914" y="782" width="128" height="6"/>
  </objectgroup>
  <objectgroup id="4" name="House">
   <object id="11" name="House" x="1633" y="97" width="189" height="252"/>

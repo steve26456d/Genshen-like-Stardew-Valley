@@ -23,5 +23,31 @@ Object* Object::create(const std::string& filepath)
 	else
 	{
 		CC_SAFE_DELETE(object);
+		return nullptr;
 	}
+}
+
+NPC* NPC::create(const std::string& filename)
+{
+	NPC* npc = new (std::nothrow) NPC;
+	if (npc && npc->initWithFile(filename))
+	{
+		npc->autorelease();
+		return npc;
+	}
+	else
+	{
+		CC_SAFE_DELETE(npc);
+		return nullptr;
+	}
+}
+
+void NPC::setNPCName(const NPC::NPCName& name)
+{
+	_name = name;
+}
+
+NPC::NPCName NPC::getNPCName()
+{
+	return _name;
 }

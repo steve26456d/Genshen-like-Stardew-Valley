@@ -48,7 +48,7 @@ public:
     void initHero();
 
     //Object²ã
-    void initObject(const std::string& objectlayer,const std::string& objectname);
+    void initObject(const std::string& objectlayer,const std::string& objectname,int Category);
 
     //Éú³ÉHelloWorld::create()
     CREATE_FUNC(HelloWorld);

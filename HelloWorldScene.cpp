@@ -11,6 +11,7 @@
 #include"bag.h"
 #include"animation.h"
 #include"Item.h"
+#include"TalkingScene.h"
 USING_NS_CC;
 cocos2d::TMXTiledMap* HelloWorld::map = nullptr;
 Sprite* HelloWorld::hero = nullptr;
@@ -38,7 +39,7 @@ bool HelloWorld::init()
     using namespace cocos2d;
 
     this->scheduleUpdate();
-    //this->schedule(SEL_SCHEDULE(&HelloWorld::ChangeSeason),6.0f,kRepeatForever,0.0f);
+    this->schedule(SEL_SCHEDULE(&HelloWorld::ChangeSeason),300.0f,kRepeatForever,0.0f);
     
     if (!Layer::init())
     {
@@ -57,17 +58,20 @@ bool HelloWorld::init()
 
     //设置图块层
    
-    initObject("Fish", "Fish");
-    initObject("House", "House");
-    initObject("Obstacle", "Canal");
-    initObject("Obstacle", "Handrail1");
-    initObject("Obstacle", "Handrail2");
-    initObject("Obstacle", "Handrail3");
-    initObject("Obstacle", "Handrail4");
-    initObject("Obstacle", "Tree1");
-    initObject("Obstacle", "Tree2");
-    initObject("Obstacle", "Tree3");
-    initObject("Obstacle", "Tree4");
+    initObject("Fish", "Fish",(int)PhysicsCategory::FishPoint);
+    initObject("House", "House",0);
+    initObject("Obstacle", "Canal",0);
+    initObject("Obstacle", "Handrail1",0);
+    initObject("Obstacle", "Handrail2",0);
+    initObject("Obstacle", "Handrail3",0);
+    initObject("Obstacle", "Handrail4",0);
+    initObject("Obstacle", "Handrail5", 0);
+    initObject("Obstacle", "Handrail6", 0);
+    initObject("Obstacle", "Handrail7", 0);
+    initObject("Obstacle", "Tree1",0);
+    initObject("Obstacle", "Tree2",0);
+    initObject("Obstacle", "Tree3",0);
+    initObject("Obstacle", "Tree4",0);
     //加载地图
     this->addChild(map, 1);
 
@@ -138,7 +142,7 @@ void HelloWorld::ChangeSeason(float delta)
 {
     static int Time = 0;
     Time++;
-    if(Time % 2 == 1)
+    if(Time % 3 == 1)
     {
         auto zorder = map->getLocalZOrder();
         auto newmap = TMXTiledMap::create("desert map/desert.tmx");
@@ -148,7 +152,17 @@ void HelloWorld::ChangeSeason(float delta)
         this->addChild(newmap, zorder);
         map = newmap;
     }
-    else if (Time % 2 == 0)
+    else if (Time % 3 == 2)
+    {
+        auto zorder = map->getLocalZOrder();
+        auto newmap = TMXTiledMap::create("home map/home.tmx");
+        auto director = Director::getInstance();                       //获得导演
+        newmap->setScale(director->getContentScaleFactor() * 2);              //调整大小，适配屏幕
+        this->removeChild(map, true);
+        this->addChild(newmap, zorder);
+        map = newmap;
+    }
+    else
     {
         auto zorder = map->getLocalZOrder();
         auto newmap = TMXTiledMap::create("home map/home.tmx");
@@ -389,6 +403,12 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
                 }
             }
             break;
+            case EventKeyboard::KeyCode::KEY_T:
+            {
+                auto talking = TalkingScene::create();
+                this->addChild(talking, INT_MAX);
+            }
+            break;
         }
         default:
             break;
@@ -439,6 +459,8 @@ void HelloWorld::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d:
             break;
     }
 }
+
+
 //碰撞函数
 bool HelloWorld::onContactBegin(PhysicsContact& contact)
 {
@@ -464,6 +486,12 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
             IsCollide = true;
             IsFishing = true;
             collidedSprite = nullptr;
+            break;
+        }
+        case (int)PhysicsCategory::NPC:
+        {
+            IsCollide = true;
+            collidedSprite = (Object*)ShapeB->getNode();
             break;
         }
         default:
@@ -624,7 +652,7 @@ void HelloWorld::MoveHero(FaceDirection direction)
     return;
 }
 
-void HelloWorld::initObject(const std::string & objectlayer,const std::string& objectname)
+void HelloWorld::initObject(const std::string & objectlayer,const std::string& objectname,int Category)
 {
     //设置图块层
     auto maplayer = map->getObjectGroup(objectlayer);

@@ -4,35 +4,35 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>qilunuo-work-left-0.png</key>
+            <key>qilunuo-work-down-0.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{56,92}</string>
+                <string>{58,92}</string>
                 <key>spriteSourceSize</key>
                 <string>{96,96}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{56,92}}</string>
+                <string>{{1,1},{58,92}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>qilunuo-work-left-1.png</key>
+            <key>qilunuo-work-down-1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-10,-11}</string>
+                <string>{-5,-12}</string>
                 <key>spriteSize</key>
-                <string>{76,70}</string>
+                <string>{68,68}</string>
                 <key>spriteSourceSize</key>
                 <string>{96,96}</string>
                 <key>textureRect</key>
-                <string>{{59,1},{76,70}}</string>
+                <string>{{1,95},{68,68}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -44,13 +44,13 @@
             <key>premultiplyAlpha</key>
             <false/>
             <key>realTextureFileName</key>
-            <string>qilunuo-work-left</string>
+            <string>qilunuo-work-down.png</string>
             <key>size</key>
-            <string>{130,94}</string>
+            <string>{70,164}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cade64ad67de8e2ae1824b6ecaf50c5c:5557ba76f86ce1e4c3dfd02908aa36f9:d94612b8c324e1a524ce82ca28b4249d$</string>
+            <string>$TexturePacker:SmartUpdate:e867d892c4d82bc4cbb58c55b54ff33b:47bd05f82de0004193ce21dae9928dfa:8008e89bd3c5e558908cc598b59783b8$</string>
             <key>textureFileName</key>
-            <string>qilunuo-work-left</string>
+            <string>qilunuo-work-down.png</string>
         </dict>
     </dict>
 </plist>

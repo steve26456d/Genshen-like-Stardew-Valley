@@ -22,7 +22,8 @@ public:
 	{
 		Plant,
 		Sheep,
-		Chicken
+		Chicken,
+		NPC
 	};
 	static Object* create(const std::string& filepath);
 
@@ -31,5 +32,25 @@ public:
 	void setType(ObjectType type);
 protected:
 	ObjectType _type;
+};
+
+class NPC :public Object
+{
+public:
+	enum class NPCName
+	{
+		Ding,
+		Li,
+		None
+	};
+	static NPC* create(const std::string& filepath);
+
+	void setNPCName(const NPCName&);
+	NPCName getNPCName();
+
+private:
+	NPCName _name = NPCName::None;
+	int _impression;
+	std::string _talk;
 };
 
