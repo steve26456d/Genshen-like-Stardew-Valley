@@ -12,16 +12,6 @@ public:
 
 	void update(float delta) override;              //重写的更新函数
 
-	//void ChangeSeason(float delta);                 //改变季节函数
-	virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-
-	virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
-
-	virtual void onExit();
-
 	CREATE_FUNC(Desert);
-private:
-	cocos2d::TMXTiledMap* map = nullptr;
-	cocos2d::Sprite* hero = nullptr;
 };
 #endif

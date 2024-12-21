@@ -45,34 +45,43 @@ public:
 
     //Hero的方法
     void MoveHero(FaceDirection);                //Hero移动
-    void initHero();
+    void initHero(const cocos2d::Vec2& pos);
 
     //Object层
     void initObject(const std::string& objectlayer,const std::string& objectname,int Category);
 
+    //屏幕边缘检测
+    void CheckEdge();
+
     //生成HelloWorld::create()
     CREATE_FUNC(HelloWorld);
-private:
+protected:
     //瓦片地图成员,以瓦片地图为成员，方便切换季节
-    static cocos2d::TMXTiledMap* map;               
+    cocos2d::TMXTiledMap* map = nullptr;               
    
     //主角
-    static cocos2d::Sprite* hero;
+    cocos2d::Sprite* hero = nullptr;
 
     //被碰撞的物体
-    static Object* collidedSprite;
+    Object* collidedSprite = nullptr;
 
     //是否碰撞检测
-    static bool IsCollide;
+    bool IsCollide = false;
 
     //钓鱼检测
-    static bool IsFishing;
+    bool IsFishing = false;
 
     //背包检测
-    static bool IsBag;
+    bool IsBag = false;
 
-    FaceDirection _direction;
+    //对话检测
+    bool IsTalking = false;
+
+    FaceDirection _direction = FaceDirection::None;
     
+    FaceDirection _collidedir = FaceDirection::None;
+
+    cocos2d::Vec2 _heroinitPos = {0,0};
 };
 
 #endif // __HELLOWORLD_SCENE_H__

@@ -92,4 +92,8 @@ void TalkingScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
     {
         showNextTalking();
     }
+    else if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
+    {
+        this->removeFromParent();
+    }
 }

@@ -13,14 +13,10 @@
 #include"Item.h"
 #include"TalkingScene.h"
 USING_NS_CC;
-cocos2d::TMXTiledMap* HelloWorld::map = nullptr;
-Sprite* HelloWorld::hero = nullptr;
-Object* HelloWorld::collidedSprite = nullptr;
-bool HelloWorld::IsCollide = false;
-bool HelloWorld::IsFishing = false;
-bool HelloWorld::IsBag = false;
+
 
 const Size AnimalSize = { 60,60 };  //设置动物大小
+
 
 Scene* HelloWorld::createScene()
 {
@@ -59,24 +55,25 @@ bool HelloWorld::init()
     //设置图块层
    
     initObject("Fish", "Fish",(int)PhysicsCategory::FishPoint);
-    initObject("House", "House",0);
-    initObject("Obstacle", "Canal",0);
-    initObject("Obstacle", "Handrail1",0);
-    initObject("Obstacle", "Handrail2",0);
-    initObject("Obstacle", "Handrail3",0);
-    initObject("Obstacle", "Handrail4",0);
-    initObject("Obstacle", "Handrail5", 0);
-    initObject("Obstacle", "Handrail6", 0);
-    initObject("Obstacle", "Handrail7", 0);
-    initObject("Obstacle", "Tree1",0);
-    initObject("Obstacle", "Tree2",0);
-    initObject("Obstacle", "Tree3",0);
-    initObject("Obstacle", "Tree4",0);
+    initObject("House", "House", (int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Canal",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Handrail1",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Handrail2",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Handrail3",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Handrail4",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Handrail5", (int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Handrail6", (int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Handrail7", (int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Tree1",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Tree2",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Tree3",(int)PhysicsCategory::Obstacle);
+    initObject("Obstacle", "Tree4",(int)PhysicsCategory::Obstacle);
     //加载地图
     this->addChild(map, 1);
 
     //初始化英雄
-    initHero();
+    _heroinitPos = { visibleSize.width / 2 + origin.x , visibleSize.height / 2 + origin.y };
+    initHero(_heroinitPos);
 
     //键盘监听
     auto listenerKeyboard = cocos2d::EventListenerKeyboard::create();
@@ -104,30 +101,7 @@ void HelloWorld::update(float delta)
     auto heroposition = this->hero->getPosition();
     //屏幕边缘检测
     {
-        if (ymax < heroposition.y + 10.f)
-        {
-            auto repeat = this->hero->getActionByTag(static_cast<int>(MyActionTag::MyGoUp));
-            if (repeat)
-                this->hero->stopAction(repeat);
-        }
-        if (xmax < heroposition.x + 10.f)
-        {
-            auto repeat = this->hero->getActionByTag(static_cast<int>(MyActionTag::MyGoRight));
-            if (repeat)
-                this->hero->stopAction(repeat);
-        }
-        if (heroposition.y - 10.0f < 0)
-        {
-            auto repeat = this->hero->getActionByTag(static_cast<int>(MyActionTag::MyGoDown));
-            if (repeat)
-                this->hero->stopAction(repeat);
-        }
-        if (heroposition.x - 10.0f < 0)
-        {
-            auto repeat = hero->getActionByTag(static_cast<int>(MyActionTag::MyGoLeft));
-            if (repeat)
-                this->hero->stopAction(repeat);
-        }
+        CheckEdge();
     }
     if(abs(heroposition.x - xmax) < 10.0f && abs(heroposition.y - ymax / 2) < 100.0f)
     {
@@ -467,6 +441,24 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
     auto ShapeA = contact.getShapeA()->getBody();
     auto ShapeB = contact.getShapeB()->getBody();
     ShapeA->getNode()->stopAllActions();
+
+    //阻止深入
+    switch (_direction)
+    {
+        case FaceDirection::Up:
+            _collidedir = FaceDirection::Up;
+            break;
+        case FaceDirection::Down:
+            _collidedir = FaceDirection::Down;
+            break;
+        case FaceDirection::Left:
+            _collidedir = FaceDirection::Left;
+            break;
+        case FaceDirection::Right:
+            _collidedir = FaceDirection::Right;
+            break;
+    }
+
     switch (ShapeB->getCategoryBitmask())
     {
         case (int)PhysicsCategory::Animal:
@@ -494,6 +486,11 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
             collidedSprite = (Object*)ShapeB->getNode();
             break;
         }
+        case (int)PhysicsCategory::Obstacle:
+        {
+            IsCollide = true;
+            break;
+        }
         default:
             break;
     }
@@ -504,21 +501,21 @@ bool HelloWorld::onContactSeparate(PhysicsContact& contact)
 {
     auto ShapeA = contact.getShapeA()->getBody();
     auto ShapeB = contact.getShapeB()->getBody();
+    IsCollide = false;
     switch (ShapeB->getCategoryBitmask())
     {
         case (int)PhysicsCategory::Animal:
         case (int)PhysicsCategory::Plant:
         {
-            IsCollide = false;
             collidedSprite = nullptr;
             break;
         }
         case (int)PhysicsCategory::FishPoint:
         {
-            IsCollide = false;
             IsFishing = false;
             break;
         }
+
         default:
             break;
     }
@@ -571,36 +568,7 @@ void HelloWorld::MoveHero(FaceDirection direction)
     if (IsBag)
         return;
 
-    if (IsCollide)
-    {
-        MoveBy* actionaway = nullptr;
-        switch (_direction)
-        {
-            case FaceDirection::Down:
-            {
-                actionaway = MoveBy::create(0, Vec2(0, 10));
-            }
-            break;
-            case FaceDirection::Up:
-            {
-                actionaway = MoveBy::create(0, Vec2(0, -10));
-            }
-            break;
-            case FaceDirection::Left:
-            {
-                actionaway = MoveBy::create(0, Vec2(10, 0));
-            }
-            break;
-            case FaceDirection::Right:
-            {
-                actionaway = MoveBy::create(0, Vec2(-10, 0));
-            }
-            break;
-        }
-        if(actionaway)
-            hero->runAction(actionaway);
-        return;
-    }
+   
 
     RepeatForever* repeat = nullptr;
     Animate* animationaction = nullptr;
@@ -609,6 +577,8 @@ void HelloWorld::MoveHero(FaceDirection direction)
     {
         case FaceDirection::Up:
         {
+            if (IsCollide && _collidedir == FaceDirection::Up)
+                break;
             _direction = FaceDirection::Up;
             action = MoveBy::create(0.4f, Vec2(0, 4 * HERO_SPEED));
             animationaction = getanimation("qilunuo", "walk", "up", 4, 0.1);
@@ -618,6 +588,8 @@ void HelloWorld::MoveHero(FaceDirection direction)
         break;
         case FaceDirection::Down:
         {
+            if (IsCollide && _collidedir == FaceDirection::Down)
+                break;
             _direction = FaceDirection::Down;
             action = MoveBy::create(0.4f, Vec2(0, -4 * HERO_SPEED));
             animationaction = getanimation("qilunuo", "walk", "down", 4, 0.1);
@@ -627,7 +599,8 @@ void HelloWorld::MoveHero(FaceDirection direction)
         break;
         case FaceDirection::Right:
         {
-            
+            if (IsCollide && _collidedir == FaceDirection::Right)
+                break;
             _direction = FaceDirection::Right;
             action = MoveBy::create(0.4f, Vec2(4 * HERO_SPEED, 0));
             animationaction = getanimation("qilunuo", "walk", "right", 4, 0.1);
@@ -637,6 +610,8 @@ void HelloWorld::MoveHero(FaceDirection direction)
         break;
         case FaceDirection::Left:
         {
+            if (IsCollide && _collidedir == FaceDirection::Left)
+                break;
             _direction = FaceDirection::Left;
             action = MoveBy::create(0.4f, Vec2(-4 * HERO_SPEED, 0));
             animationaction = getanimation("qilunuo", "walk", "left", 4, 0.1);
@@ -667,7 +642,7 @@ void HelloWorld::initObject(const std::string & objectlayer,const std::string& o
         //设置物理体
     auto body = PhysicsBody::createBox(Size(width, height));
     body->setDynamic(false); // 设置为静态物体
-    body->setCategoryBitmask((int)PhysicsCategory::FishPoint);
+    body->setCategoryBitmask(Category);
     body->setContactTestBitmask((int)PhysicsCategory::Hero);
     auto node = Node::create();
     node->setPosition(mapobject["x"].asFloat() + width / 2, y + height / 2); // 设置节点的位置（中心对齐）
@@ -676,12 +651,12 @@ void HelloWorld::initObject(const std::string & objectlayer,const std::string& o
 }
 
 //初始化主角
-void HelloWorld::initHero()
+void HelloWorld::initHero(const Vec2& pos)
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     hero = initframe("qilunuo", "walk", "down");
-    hero->setPosition(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y);
+    hero->setPosition(pos);
     this->addChild(hero, 3);
     auto herobody = PhysicsBody::createBox(Size(hero->getContentSize().width / 2 , hero->getContentSize().height / 3));
     herobody->setPositionOffset(Vec2(0, -hero->getContentSize().height * 0.25f));
@@ -694,4 +669,38 @@ void HelloWorld::initHero()
     herobody->setCollisionBitmask(0);
     hero->setPhysicsBody(herobody);
     hero->stopAllActions();
+}
+
+void HelloWorld::CheckEdge()
+{
+    auto ymax = Director::getInstance()->getVisibleSize().height;  //屏幕边缘
+    auto xmax = Director::getInstance()->getVisibleSize().width;
+    auto heroposition = this->hero->getPosition();
+    //屏幕边缘检测
+    {
+        if (ymax < heroposition.y + 10.f)
+        {
+            auto repeat = this->hero->getActionByTag(static_cast<int>(MyActionTag::MyGoUp));
+            if (repeat)
+                this->hero->stopAction(repeat);
+        }
+        if (xmax < heroposition.x + 10.f)
+        {
+            auto repeat = this->hero->getActionByTag(static_cast<int>(MyActionTag::MyGoRight));
+            if (repeat)
+                this->hero->stopAction(repeat);
+        }
+        if (heroposition.y - 10.0f < 0)
+        {
+            auto repeat = this->hero->getActionByTag(static_cast<int>(MyActionTag::MyGoDown));
+            if (repeat)
+                this->hero->stopAction(repeat);
+        }
+        if (heroposition.x - 10.0f < 0)
+        {
+            auto repeat = hero->getActionByTag(static_cast<int>(MyActionTag::MyGoLeft));
+            if (repeat)
+                this->hero->stopAction(repeat);
+        }
+    }
 }
