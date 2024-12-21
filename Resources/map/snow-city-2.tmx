@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="37">
+ <tileset firstgid="1" source="normal_city.tsx"/>
+ <tileset firstgid="2305" source="squar_about_snow.tsx"/>
+ <layer id="1" name="photo-1" width="64" height="35" locked="1">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <layer id="2" name="photo-2" width="64" height="35" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJztlsEOgjAMhvG4hFcQff8X0Jve9CaP5HogGeVX2jCg2n4JWTqyjr/7u9A0U84JTK7MMY1Hz1ANvNdhqMHadUBeH+Zo5O9PG53Lnv2AdO9FDf2aHFZ0L6H0zhp9xHtgq54I6vPt/gv+i093gJfzLu/B1olmBNWgdf6PSfq70B8EkEv2xtWJP5DWW47vAv18rTa2ANL6yPFT8J18rTa2ANL6ynEv+E6+VhtrOaTxI6FL06eEa7XoUYRUPzFXgxKLHkVo9BMS7QTyqMZvc1jKg3pJ2vtL9rSSp+a5ava0koef/xa1CP128oT/f1d/DfbQHwQWiT4ISjz44Q0KFC+T
+  </data>
+ </layer>
+ <objectgroup id="5" name="obj-1">
+  <object id="1" name="obstacle-12" x="3.40836" y="349.357" width="25.5627" height="93.73"/>
+  <object id="2" name="obstacle-11" x="0" y="538.521" width="28.9711" height="97.1383"/>
+  <object id="3" name="obstacle-7" x="71.5756" y="732.798" width="88.6174" height="257.331"/>
+  <object id="4" name="obstacle-8" x="3.40836" y="962.862" width="88.6174" height="90.3216"/>
+  <object id="5" name="obstacle-9" x="132.926" y="1022.51" width="124.405" height="57.9422"/>
+  <object id="6" name="obstacle-10" x="1.70418" y="1053.18" width="221.544" height="61.3505"/>
+  <object id="7" name="obstacle-14" x="962.862" y="703.827" width="190.868" height="189.164"/>
+  <object id="8" name="obstacle-15" x="1254.28" y="587.943" width="248.81" height="305.048"/>
+  <object id="9" name="obstacle-16" x="1634.31" y="584.534" width="250.515" height="310.161"/>
+  <object id="10" name="obstacle-19" x="1958.1" y="705.531" width="93.73" height="160.193"/>
+  <object id="11" name="obstacle-13" x="961.158" y="558.971" width="165.306" height="27.2669"/>
+  <object id="12" name="obstacle-17" x="1250.87" y="558.971" width="288.007" height="25.5627"/>
+  <object id="13" name="obstacle-18" x="1630.9" y="560.676" width="351.061" height="22.1544"/>
+  <object id="18" name="obstacle-23" x="1353.12" y="398.778" width="46.0129" height="32.3794"/>
+  <object id="19" name="obstacle-22" x="1451.96" y="402.187" width="69.8714" height="28.9711"/>
+  <object id="20" name="obstacle-21" x="1581.48" y="402.187" width="167.01" height="30.6753"/>
+  <object id="21" name="obstacle-20" x="1811.54" y="400.483" width="167.01" height="32.3794"/>
+  <object id="22" name="obstacle-24" x="1100.9" y="402.187" width="195.981" height="28.9711"/>
+  <object id="23" name="obstacle-25" x="964.567" y="400.483" width="88.6174" height="28.9711"/>
+  <object id="24" name="obstacle-4" x="558.971" y="642.476" width="366.399" height="22.1544"/>
+  <object id="25" name="obstacle-3" x="267.556" y="635.66" width="226.656" height="27.2669"/>
+  <object id="26" name="obstacle-2" x="269.261" y="662.927" width="17.0418" height="267.556"/>
+  <object id="27" name="obstacle-5" x="915.145" y="671.447" width="10.2251" height="252.219"/>
+  <object id="28" name="obstacle-6" x="639.068" y="896.399" width="281.19" height="23.8585"/>
+  <object id="30" name="obstacle-1" x="284.598" y="898.104" width="293.119" height="22.1544"/>
+ </objectgroup>
+ <objectgroup id="6" name="obj-2">
+  <object id="32" name="market" x="962.667" y="128" width="189.333" height="186.667"/>
+  <object id="33" name="NPC-building-1" x="1250.67" y="194.667" width="126.667" height="117.333"/>
+  <object id="34" name="NPC-building-2" x="1473.33" y="190.667" width="158.667" height="124"/>
+  <object id="35" name="NPC-building-3" x="1692" y="192" width="129.333" height="125.333"/>
+  <object id="36" name="NPC-building-4" x="1918.67" y="156" width="128" height="164"/>
+ </objectgroup>
+</map>

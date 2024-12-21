@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="22">
+ <tileset firstgid="1" source="baokemeng.photo.tsx"/>
+ <tileset firstgid="1921" source="squar_about_snow.tsx"/>
+ <tileset firstgid="2137" source="map_try.tsx"/>
+ <layer id="1" name="photo-2" width="64" height="36" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJzlmEtOwzAQQF1voqhXAMSiC9ZdIfGV+C74XSkH6KqCA+Q2sGsFgl05ClMRC2uUcWb8a0gXT4rqWPWbj+OkLpSaAwulVF30myWssSriUjP9Z1vuLyVFvP6Tf4pYcfx3tFK7Fvua70+tY6Xo9eIx1zzuGMULzHl2MNG//nsWUn+btrW6xmLFJsR/gvwPBP62n9SfO8/g479EOTLexqXN/1Do35Vj3CMc/67Y+PhXkfw/VTpWzPuo/pH6H4HrMXACnAJnwLlH/mPtY7H7v6v+L8D1ErgCroEb4LYn/rHrn/K/A+6BB+AReIrs77M35PI3TAXnJOyP19lH/yqzP+UgGe+aG+I/bSHX+Rc/112EuBt/+z+N/wiR0z8nS9RPMf3fYM7HBnhHdN2bwt9c56rjGNj+ZeOtM/lvOjZU/+sGX/+QvY3LXIhrTcbf5L308J8V4fnnznW9u1JQ/hXy1wn9u/y4c9t8fOoex7LNn3smCPWT+vvWv8udk2eXfygSf5/6D3VP7c/Ft/4p91fBOWNK/O6TkxCk9d9WN6bfF4L8U+T2D0WruP4pv39x+BJ6lyqu//o9fJN8N35j9XeOGSEvO+ex898Xf5Nb7rqH5i/xNtdD8pc8y4fob/f8OhZjh9sQ+9/+fuFyHur+Z7+/U77b4s8lhv8P0jN/Mg==
+  </data>
+ </layer>
+ <objectgroup id="4" name="obj-1">
+  <object id="3" name="Handrail2" x="68" y="509" width="1340" height="34"/>
+  <object id="4" name="Handrail3" x="1395" y="-3" width="11" height="130"/>
+  <object id="5" name="Handrail4" x="1396" y="190" width="9" height="322"/>
+  <object id="6" name="canal" x="-1" y="251" width="1054" height="36"/>
+  <object id="7" name="water" x="289" y="128" width="31" height="288"/>
+  <object id="9" name="water" x="512" y="127" width="32" height="288"/>
+  <object id="10" name="water" x="735" y="127" width="33" height="288"/>
+  <object id="11" name="water" x="960" y="127" width="33" height="287"/>
+  <object id="12" name="fish" x="0" y="864" width="1055" height="288"/>
+  <object id="13" name="Handrail6" x="1505" y="766" width="345" height="31"/>
+  <object id="14" name="Handrail7" x="1893" y="767" width="157" height="32"/>
+  <object id="15" name="Handrail5" x="1506" y="797" width="13" height="353"/>
+  <object id="16" name="place-for-animals" x="1532" y="807" width="515" height="344"/>
+  <object id="17" name="home" x="1630" y="94" width="193" height="258"/>
+  <object id="19" name="place-for-growth" x="97" y="2" width="1278" height="505"/>
+  <object id="20" name="Handrail1" x="58" y="-2" width="28" height="545"/>
+ </objectgroup>
+ <layer id="3" name="photo-2" width="64" height="36" locked="1">
+  <data encoding="base64" compression="zlib">
+   eJztmE0OgjAQRtnVG+lOd7rTnV7HFUsuQBrDSaWBSXDSTlv6w5T6kiYqIn0zXyuhacqlFVvPYFu6yv3/+PER06gV8K+1Bsq7rdhf0VWegV5MozZ/KaaxR3/f+6C+cHc8f9f7IDl/D9a/LLAOkN+Q80v+H4zhD5TY/7WAK/jjPeN4aJrTIe+cYvEWv8MFvGecR/fLzv2ptXMd3W8af5wLjjlx8bftG/fR6aHxwrngmJM1+cc8R6eXxgvnwpSTLYnhb+orzoUpJ1sSw9/UV5wL/H7t9WISw5/qK3V/3VqumeMZZcr1r+iI36WOwfGULJ1D/FORcj4cfXNRq7ei9r6b/OEZzx7Be7yPv+5zbrXS+dnGntD5SYO3JPyXPaX6y6n3CvCSC8dhfj0k6D9Hf3AdLP0P8ee27oFY6x/n3+TKrQ7Uuqf2AV8H1/0hN2v7j2vAycmH0PxDHXz9v7iclRg=
+  </data>
+ </layer>
+</map>

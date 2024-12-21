@@ -13,7 +13,9 @@ enum class PhysicsCategory
 	Animal = (1 << 2),
 	Plant = (1 << 3),
 	FishPoint = (1 << 4),
-	Obstacle = (1 << 5)
+	Obstacle = (1 << 5),
+	Home = (1 << 6),
+	CookPoint = (1 << 7)
 };
 //作为所有NPC，动物，植物的父类，继承自Sprite类
 class Object : public cocos2d::Sprite 
@@ -40,8 +42,8 @@ class NPC :public Object
 public:
 	enum class NPCName
 	{
-		Ding,
-		Li,
+		L,
+		M,
 		None
 	};
 	static NPC* create(const std::string& filepath);
@@ -49,9 +51,9 @@ public:
 	void setNPCName(const NPCName&);
 	NPCName getNPCName();
 
+
 private:
 	NPCName _name = NPCName::None;
 	int _impression;
 	std::string _talk;
 };
-

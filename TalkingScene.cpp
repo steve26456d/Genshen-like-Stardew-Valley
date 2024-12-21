@@ -1,6 +1,7 @@
 #include"TalkingScene.h"
 USING_NS_CC;
 
+std::pair<int, int> TalkingScene::TalkingTime = {0 , 0};
 bool TalkingScene::init()
 {
     if (!Layer::init())
@@ -95,5 +96,36 @@ void TalkingScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
     else if (keyCode == EventKeyboard::KeyCode::KEY_ESCAPE)
     {
         this->removeFromParent();
+    }
+}
+
+void TalkingScene::ToTalking(NPC::NPCName name)
+{
+    switch (name)
+    {
+        case NPC::NPCName::L:
+        {
+            switch (TalkingScene::TalkingTime.first)
+            {
+                case 0:
+                {
+                    _talkingText = "Hello\nNice to meet you\nMy Name Is L\n";
+                }
+                break;
+            }
+        }
+        break;
+        case NPC::NPCName::M:
+        {
+            switch (TalkingScene::TalkingTime.second)
+            {
+                case 0:
+                {
+                    _talkingText = "Hello\nNice to meet you\nMy Name Is M\n";
+                }
+                break;
+            }
+        }
+        break;
     }
 }

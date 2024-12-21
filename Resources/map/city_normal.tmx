@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="72">
+ <tileset firstgid="1" source="baokemeng.photo.tsx"/>
+ <layer id="1" name="picture" width="64" height="36">
+  <data encoding="base64" compression="zlib">
+   eJzl2EmMFFUcx/FaWoeJghzUw3jRkzJyoUlEMFFjIuCAC8O+7zuoDKAyDFH2XVwZ3GZGURYXwBXcvWqiB2Ki8aIn8ISc0ERFv5Wpl/nX6/deVXf10BM9fNL16v2r6v2qXr2e6cDzvOASadLIvht8e91YjKOjGeMxAROD5Hlsx+tjiOoUva/esm1q58ltG7erfiod0zAdMzAzKM2ozuW6z/p9sI25EAtjcr9eG4r9pn5bfn1stpq7MJeCeZiPBVgYuM+b9Zq2LOp5FwTbfLHVVDo+k6WccBmWYwVW5sjvuhf1Wh55L2S/mhO2e5N23TMUncWvQXLbdUxDjpzNYnuMIb/KZboX+vx3zYms4zlH8W84HyS3s+Zfyru7DMuxAiv9bNe9m7qRGIXRjvdfZQ21529aEyqZ7xc44Hf8ESS3Zc09USaMwVi/O7+6B6tot2A11mCtbz9OnvNe2vfhfjzgl85hlVVmDL3keliN9e1PdvyFv3ER/8QXkjXjGF8zxmOCn5wD62i3Yj3asMF3H6dMpD0JkzHFN899mVGuB6Y54spdr33K+pCLFHAZLkcd+mn5pzK+aZiOGVr+jbQ3YTO2YKvvPk6ZSXsWZmOO5fnbslb63E31V5D1SvTHAFyFgVr+uYxvHuZjgZZ/J+1d2I092Ou7j1MW0l6ExVhief9dGar93fYdivg2Y39DxmPTzhu5DudEJvXcXe+t3q5DvxztWue/kPMZ98eACtr7udntheQ4o306vb/Bs/e5jlOiax4o9OS/GGe9PmNe3TW4toJ2B2PoLHR/FuO2jexv8Ox9ruOU6Jpd8Xmi/I19QDFHf6V9sub/bEQfU+7Y8maR67/8O+UWDMOtnvt7UK3n5bbVWtQu1qWr2T8kzjLU6+l3KafetP5F6/+NuEnLdTvuwJ1e6feBrLOt73q/3lZrUadYl/T8qzigBauxBmuDnmOUcurl+ifXf5lTzYGRGIXRnn3tj+ps63uQ0m86n55/HSdoxXq0YUNQekw59fWCyi9zmub3aXzv0JTSr/vGcT/1/BsZwCZsxhZsxTZsx46gNH9avSm/6W8e+e6fdoy3Eq7z6fl3MqBd2I092IsnsQ9PGfKn1Zvyq/kuxyHffTneVk1Thj5930/xp+33H5nnadrP4Fk8h+exH+04YMifpT4yie3JmBIksz8e//8l34neev62339knhdov4iX8DJeQUe0pqHLkD9LfWQW27MxR+TfRvbt2BGax1vt/Lbff2SeV2m/hoN4HW/gEA7jiCF/lvrIIrYXY4n2/PeF9vFWa/6r89l+/5F5jrLvTbyFt/EOjuE4ThjyZ6mPPMj2Q3g4SGZoT8lfzedv+/1H5nmX8b2H9/EBPsRHOIlThvxZ6iOPsP0oHhP7Orh2J7ou0fy3/f4j83zM+D7Bp/gMn+MLfImvDPmz1MtjnhD7DnHtwzhiyJ/le13N8bS6r+PzDvLS/x/T95vqG3PUF0XOY+Q+jhNh6bucR0udWZs2jloZxFgacTNOkv1UmG38JuXcl+Fe7f/XjAxh3EUM1bKoe1LNd78vGk7GEbgtzjq4LnlPaj2+3vaDxY9e9z0ZHKv1OHvLzxa/eD3z4b98D2z5z1vmRK3HW23/Av2Hw7w=
+  </data>
+ </layer>
+ <layer id="4" name="picture-2" width="64" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztzzEKg0AYBeHf+59GjYVGi0Qt1Hgn5wQLCxJYnA+me82LkCRJkiRJkiQ9XV1FNNTSi7rqnm0pej4M9KaRpsSnnG0pPnz40kwLrYlPOdtSbHzY6aAfnYlPOVtJkiTpXy777B4B
+  </data>
+ </layer>
+ <objectgroup id="2" name="buildings-cannotgetin">
+  <object id="1" name="obstacle2" x="-3.36579" y="536.844" width="31.975" height="104.34"/>
+  <object id="2" name="obstacle1" x="-5.04869" y="346.677" width="40.3895" height="102.657"/>
+  <object id="3" name="obstacle3" x="65.6329" y="725.328" width="89.1935" height="255.8"/>
+  <object id="4" name="obstacle4" x="-11.7803" y="954.202" width="104.34" height="102.657"/>
+  <object id="5" name="obstacle5" x="0" y="1053.49" width="380.334" height="95.9251"/>
+  <object id="6" name="obstacle" x="134.632" y="1018.15" width="119.486" height="31.975"/>
+  <object id="7" name="obstacle8" x="272.215" y="636.135" width="13.8776" height="289.458"/>
+  <object id="8" name="obstacle6" x="275.995" y="890.252" width="274.921" height="37.0237"/>
+  <object id="9" name="obstacle7" x="679.15" y="891.935" width="246.442" height="33.6579"/>
+  <object id="10" name="obstacle10" x="577.258" y="641.183" width="348.334" height="23.5605"/>
+  <object id="11" name="obstacle11" x="908.764" y="664.744" width="13.4632" height="230.557"/>
+  <object id="12" name="obstacle9" x="282.726" y="641.183" width="206.841" height="25.2434"/>
+  <object id="13" name="obstacle14" x="960.933" y="557.038" width="159.875" height="33.6579"/>
+  <object id="14" name="obstacle15" x="971.031" y="402.212" width="56.4294" height="21.8776"/>
+  <object id="15" name="obstacle16" x="1112.14" y="398.846" width="195.475" height="26.9263"/>
+  <object id="16" name="obstacle17" x="1359.37" y="397.163" width="23.8202" height="26.9263"/>
+  <object id="17" name="obstacle18" x="1462.59" y="400.529" width="41.1286" height="33.6579"/>
+  <object id="18" name="obstacle19" x="1611.89" y="400.529" width="108.07" height="28.6092"/>
+  <object id="19" name="obstacle24" x="1826.32" y="393.798" width="126.103" height="35.3408"/>
+  <object id="23" name="obstacle22" x="1640.82" y="578.916" width="242.337" height="313.019"/>
+  <object id="24" name="obstacle25" x="1957.21" y="708.499" width="87.5106" height="171.655"/>
+  <object id="25" name="obstacle23" x="1659.99" y="551.99" width="319.091" height="38.7066"/>
+  <object id="26" name="obstacle21" x="1277.06" y="550.307" width="241.742" height="43.7553"/>
+  <object id="27" name="obstacle20" x="1247.03" y="587.331" width="259.166" height="304.604"/>
+  <object id="28" name="obstacle12" x="954.202" y="695.036" width="193.533" height="200.265"/>
+  <object id="29" name="obstacle13" x="1122.49" y="538.527" width="26.9263" height="158.192"/>
+ </objectgroup>
+ <objectgroup id="3" name="buildings_caninteract">
+  <object id="30" name="building-NPC-1" x="1245.34" y="186.801" width="127.9" height="132.949"/>
+  <object id="31" name="buding-NPC-3" x="1694.68" y="185.119" width="131.266" height="132.949"/>
+  <object id="32" x="1356.41" y="1326.12" height="3.36579"/>
+  <object id="21" name="building-NPC-2" x="1469.17" y="175.021" width="161.558" height="141.363"/>
+  <object id="22" name="building-NPC-4" x="1921.87" y="159.875" width="121.168" height="154.826"/>
+  <object id="20" name="building-market" x="960.933" y="122.851" width="186.801" height="190.167"/>
+  <object id="42" name="build-2" x="350.042" y="715.231" width="149.778" height="119.486"/>
+  <object id="43" name="build-1" x="695.036" y="711.865" width="164.924" height="124.534"/>
+  <object id="71" x="1755.26" y="-116.12"/>
+ </objectgroup>
+</map>

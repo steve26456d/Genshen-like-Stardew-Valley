@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="72">
+ <tileset firstgid="1" source="cave.tsx"/>
+ <tileset firstgid="2305" source="map_try.tsx"/>
+ <tileset firstgid="4609" source="baokemeng.photo.tsx"/>
+ <layer id="1" name="photo-2" width="64" height="36" opacity="0.86">
+  <data encoding="base64" compression="zlib">
+   eJztmF0OwiAMgHnRgy3qvaaezJMJiQ+koTAG/ZH2S/owxmAfNLCxhRA2hUHN7RfPBSPnEuOaXef13jE+BLETO/Vwj/EolI+2WwP6v4j6GcGq/6y8quH+Ov053BPa/GevqS2k/Sn3kyO4v5w/5srlnpDyLzmXyqnZwTW1fy3Hud0TJX/KMTjijt2jAPpTcvYfgjMfKMHmE1sL4HOrgc25Bf/aWre6f2s9c/+++v9Gy2X1+W8h+T2kgdZ+aA339zFwf7tYzn+re2CC8xxQG9znoFqQOgfufZfeMxzY5pn+JBgdg5khhbS3tD9Eyv8LfqXqBg==
+  </data>
+ </layer>
+ <layer id="2" name="photo-1" width="64" height="36">
+  <data encoding="base64" compression="zlib">
+   eJzl2tvNqlAURlGRa1uICG1xE9pCQC3rjCb8Sc7+kvG+5sOOmhhdLpcrMQkpGTnF5f9fyY2KOzUPGtoT7/qrdfQMjEw8mVlOvOuvtvJiY+fgzYfviXf91aLI+ycmISUjp4jOvu73KzXeqLhT86ChDaC/09gzMDLxZGYJoH/V+GJj5+DNh28A/ZEP/ysxCSkZOcX17Ot+v1LjjYo7NQ8a2gD6O409AyMTT2aWAPpXjS82dg7efPgG0B/54n8lJiElI6eIz77u9ys13qi4U/OgoQ2gv9PYMzAy8WRmCaB/1fhiY+fgzYdvAP2RH/1XYhJSMnKK5Ozrfr9S442KOzUPGtoA+juNPQMjE09mlgD6V40vNnYO3nz4BtAfpd4/MQkpGTlFevZ1v1+p8UbFnZoHDW0A/Z3GnoGRiSczSwD9q8YXGzsHbz58A+iPMu+fmISUjJwiO/u636/UeKPiTs2DhjaA/k5jz8DIxJOZJYD+VeOLjZ2DNx++AfRHufdPTEJKRk6Rn33d71dqvFFxp+ZBQxtAf6exZ2Bk4snMEkD/qvHFxs7Bmw/fAPqjwvsnJiElI6cI4A8ApcYbFXdqHjS0AfR3GnsGRiaezCwB9K8aX2zsHLz58A2g/x/6AHWR
+  </data>
+ </layer>
+ <objectgroup id="3" name="obj-1">
+  <object id="42" name="WAY-BACK-GROUND" x="2026.21" y="1125.86">
+   <point/>
+  </object>
+  <object id="53" name="obstacle-11" x="13.3333" y="96" width="502.667" height="370.667"/>
+  <object id="55" name="obstacle-12" x="513.333" y="185.333" width="68" height="250.667"/>
+  <object id="56" name="obstacle-10" x="512" y="574.667" width="216" height="108"/>
+  <object id="57" name="obstacle-7" x="961.333" y="412" width="153.333" height="254.667"/>
+  <object id="58" name="obstacle-4" x="570.667" y="1042.67" width="996" height="108"/>
+  <object id="59" name="obstacle-5" x="678.667" y="925.333" width="602.667" height="117.333"/>
+  <object id="60" name="obstacle-6" x="830.667" y="834.667" width="349.333" height="89.3333"/>
+  <object id="62" name="obstacle-9" x="262.667" y="764" width="166.667" height="298.667"/>
+  <object id="63" name="obstacle-8" x="438.667" y="896" width="105.333" height="89.3333"/>
+  <object id="64" name="obstcle-1" x="1529.33" y="545.333" width="330.667" height="333.333"/>
+  <object id="67" name="obstacle-3" x="12" y="2.66667" width="2032" height="14.6667"/>
+  <object id="68" name="obstacle-2" x="1310.67" y="24" width="236" height="233.333"/>
+  <object id="69" name="mine-2" x="1560" y="34.6667" width="489.333" height="157.333"/>
+  <object id="70" name="mine-1" x="1898.67" y="188" width="154.667" height="104"/>
+ </objectgroup>
+</map>

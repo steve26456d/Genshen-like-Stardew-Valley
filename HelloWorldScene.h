@@ -4,6 +4,9 @@
 #include "cocos2d.h"
 #include"NPC.h"
 #include"Plant.h"
+
+//常量定义
+extern cocos2d::Vec2 HERO_POSITION;
 class HelloWorld : public cocos2d::Layer
 {
 public:
@@ -36,7 +39,7 @@ public:
     virtual bool onContactSeparate(cocos2d::PhysicsContact& contact);
 
     //换季函数
-    void ChangeSeason(float delta);              
+    virtual void ChangeSeason(float delta);              
     virtual void onExit();                  
     
     Plant* AddPlant(const std::string& filepath);                               //添加植物
@@ -50,8 +53,21 @@ public:
     //Object层
     void initObject(const std::string& objectlayer,const std::string& objectname,int Category);
 
+    void initObjects(const std::string& objectlayer, const std::string& objectname, int Category,int maxnumber);
+
     //屏幕边缘检测
     void CheckEdge();
+
+    //添加键盘监听
+    void addListener();
+    
+    //添加物理碰撞函数
+    void addContact();
+
+    //初始化地图
+    void initMap(const std::string& mapfile);
+
+    void Season(const std::string& filepath);
 
     //生成HelloWorld::create()
     CREATE_FUNC(HelloWorld);
@@ -82,6 +98,9 @@ protected:
     FaceDirection _collidedir = FaceDirection::None;
 
     cocos2d::Vec2 _heroinitPos = {0,0};
+
+private:
+    void ChangeToHome();
 };
 
 #endif // __HELLOWORLD_SCENE_H__

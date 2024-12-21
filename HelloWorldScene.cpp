@@ -14,7 +14,7 @@
 #include"TalkingScene.h"
 USING_NS_CC;
 
-
+Vec2 HERO_POSITION = { 0 , 0 };
 const Size AnimalSize = { 60,60 };  //设置动物大小
 
 
@@ -31,62 +31,37 @@ Scene* HelloWorld::createScene()
 
 bool HelloWorld::init()
 {
-    
-    using namespace cocos2d;
-
     this->scheduleUpdate();
-    this->schedule(SEL_SCHEDULE(&HelloWorld::ChangeSeason),300.0f,kRepeatForever,0.0f);
-    
+    this->schedule(SEL_SCHEDULE(&HelloWorld::ChangeSeason),10.0f,kRepeatForever,0.0f);
     if (!Layer::init())
     {
         return false;
     }
-
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
-    //初始地图
-    if (!map)
-        map = TMXTiledMap::create("home map/home (2).tmx");                  //加载瓦片地图,初始地图 
-  
-    auto director = Director::getInstance();                       //获得导演
-    //map->setScale();              //调整大小，适配屏幕
-    map->setAnchorPoint(Vec2(0, 0));
+    
 
     //设置图块层
+    initMap("home map/home (2).tmx");
    
     initObject("Fish", "Fish",(int)PhysicsCategory::FishPoint);
     initObject("House", "House", (int)PhysicsCategory::Obstacle);
     initObject("Obstacle", "Canal",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Handrail1",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Handrail2",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Handrail3",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Handrail4",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Handrail5", (int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Handrail6", (int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Handrail7", (int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Tree1",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Tree2",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Tree3",(int)PhysicsCategory::Obstacle);
-    initObject("Obstacle", "Tree4",(int)PhysicsCategory::Obstacle);
+    initObjects("Obstacle", "Handrail", (int)PhysicsCategory::Obstacle,7);
+    initObjects("Obstacle", "Tree", (int)PhysicsCategory::Obstacle, 4);
+    initObject("Home", "Home", (int)PhysicsCategory::Home);
     //加载地图
-    this->addChild(map, 1);
+    
 
     //初始化英雄
     _heroinitPos = { visibleSize.width / 2 + origin.x , visibleSize.height / 2 + origin.y };
     initHero(_heroinitPos);
 
     //键盘监听
-    auto listenerKeyboard = cocos2d::EventListenerKeyboard::create();
-    listenerKeyboard->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
-    listenerKeyboard->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenerKeyboard, this);
+    addListener();
 
     //碰撞检测
-    auto physicalcontact = cocos2d::EventListenerPhysicsContact::create();
-    physicalcontact->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
-    physicalcontact->onContactSeparate = CC_CALLBACK_1(HelloWorld::onContactSeparate, this);
-
-    director->getEventDispatcher()->addEventListenerWithSceneGraphPriority(physicalcontact, this);
+    addContact();
 
     return true;
 }
@@ -105,9 +80,10 @@ void HelloWorld::update(float delta)
     }
     if(abs(heroposition.x - xmax) < 10.0f && abs(heroposition.y - ymax / 2) < 100.0f)
     {
+        HERO_POSITION = hero->getPosition();
         hero->setPosition(heroposition.x - 100.0f, heroposition.y);
-        auto desert = Desert::createScene();//下一个场景
-        Director::getInstance()->pushScene(desert);
+        auto city = City::createScene();//下一个场景
+        Director::getInstance()->pushScene(city);
         hero->stopAllActions();
     }
 }
@@ -118,33 +94,11 @@ void HelloWorld::ChangeSeason(float delta)
     Time++;
     if(Time % 3 == 1)
     {
-        auto zorder = map->getLocalZOrder();
-        auto newmap = TMXTiledMap::create("desert map/desert.tmx");
-        auto director = Director::getInstance();                       //获得导演
-        newmap->setScale(director->getContentScaleFactor() * 2);              //调整大小，适配屏幕
-        this->removeChild(map, true);
-        this->addChild(newmap, zorder);
-        map = newmap;
+        Season("home map/home (2).tmx");
     }
     else if (Time % 3 == 2)
     {
-        auto zorder = map->getLocalZOrder();
-        auto newmap = TMXTiledMap::create("home map/home.tmx");
-        auto director = Director::getInstance();                       //获得导演
-        newmap->setScale(director->getContentScaleFactor() * 2);              //调整大小，适配屏幕
-        this->removeChild(map, true);
-        this->addChild(newmap, zorder);
-        map = newmap;
-    }
-    else
-    {
-        auto zorder = map->getLocalZOrder();
-        auto newmap = TMXTiledMap::create("home map/home.tmx");
-        auto director = Director::getInstance();                       //获得导演
-        newmap->setScale(director->getContentScaleFactor() * 2);              //调整大小，适配屏幕
-        this->removeChild(map, true);
-        this->addChild(newmap, zorder);
-        map = newmap;
+        Season("map/farm_autumn.tmx");
     }
 }
 //
@@ -379,8 +333,24 @@ void HelloWorld::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
             break;
             case EventKeyboard::KeyCode::KEY_T:
             {
-                auto talking = TalkingScene::create();
-                this->addChild(talking, INT_MAX);
+                if(IsTalking)
+                {
+                    auto npc = (NPC*)collidedSprite;
+                    auto talking = TalkingScene::create();
+                    switch (npc->getNPCName())
+                    {
+                        case NPC::NPCName::L:
+                        {
+                            
+                            break;
+                        }
+                        case NPC::NPCName::M:
+                        {
+                            break;
+                        }
+                    }
+                    this->addChild(talking, INT_MAX);
+                }
             }
             break;
         }
@@ -458,38 +428,40 @@ bool HelloWorld::onContactBegin(PhysicsContact& contact)
             _collidedir = FaceDirection::Right;
             break;
     }
-
+    IsCollide = true;
     switch (ShapeB->getCategoryBitmask())
     {
         case (int)PhysicsCategory::Animal:
         {
-            IsCollide = true;
             collidedSprite = (Object*)ShapeB->getNode();
             break;
         }
         case (int)PhysicsCategory::Plant:
         {
-            IsCollide = true;
             collidedSprite = (Object*)ShapeB->getNode();
             break;
         }
         case (int)PhysicsCategory::FishPoint:
         {
-            IsCollide = true;
             IsFishing = true;
             collidedSprite = nullptr;
             break;
         }
         case (int)PhysicsCategory::NPC:
         {
-            IsCollide = true;
+            IsTalking = true;
             collidedSprite = (Object*)ShapeB->getNode();
             break;
         }
         case (int)PhysicsCategory::Obstacle:
         {
-            IsCollide = true;
             break;
+        }
+        case (int)PhysicsCategory::Home:
+        {
+            ChangeToHome();
+            hero->setPosition(HERO_POSITION.x, HERO_POSITION.y - 50);
+            IsCollide = false;
         }
         default:
             break;
@@ -515,7 +487,10 @@ bool HelloWorld::onContactSeparate(PhysicsContact& contact)
             IsFishing = false;
             break;
         }
-
+        case (int)PhysicsCategory::NPC:
+        {
+            IsTalking = false;
+        }
         default:
             break;
     }
@@ -632,8 +607,6 @@ void HelloWorld::initObject(const std::string & objectlayer,const std::string& o
     //设置图块层
     auto maplayer = map->getObjectGroup(objectlayer);
     auto mapobject = maplayer->getObject(objectname);
-   
-       
     //获取对象的属性
     float x = mapobject["x"].asFloat();
     float y = mapobject["y"].asFloat();
@@ -703,4 +676,64 @@ void HelloWorld::CheckEdge()
                 this->hero->stopAction(repeat);
         }
     }
+}
+
+void HelloWorld::addListener()
+{
+    auto listenerKeyboard = cocos2d::EventListenerKeyboard::create();
+    listenerKeyboard->onKeyPressed = CC_CALLBACK_2(HelloWorld::onKeyPressed, this);
+    listenerKeyboard->onKeyReleased = CC_CALLBACK_2(HelloWorld::onKeyReleased, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listenerKeyboard, this);
+}
+
+void HelloWorld::addContact()
+{
+    auto physicalcontact = cocos2d::EventListenerPhysicsContact::create();
+    physicalcontact->onContactBegin = CC_CALLBACK_1(HelloWorld::onContactBegin, this);
+    physicalcontact->onContactSeparate = CC_CALLBACK_1(HelloWorld::onContactSeparate, this);
+
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(physicalcontact, this);
+}
+
+void HelloWorld::initMap(const std::string& mapfile)
+{
+    //初始地图
+    if (!map)
+        map = TMXTiledMap::create(mapfile);                  //加载瓦片地图,初始地图 
+
+    auto director = Director::getInstance();                       //获得导演
+    map->setScale(director->getVisibleSize().width / map->getContentSize().width);              //调整大小，适配屏幕
+    map->setAnchorPoint(Vec2(0, 0));
+    this->addChild(map, 1);
+}
+
+void HelloWorld::initObjects(const std::string& objectlayer, const std::string& objectname, int Category,int maxnumber)
+{
+    for (int i = 1; i <= maxnumber; i++)
+    {
+        initObject(objectlayer, objectname + std::to_string(i), (int)PhysicsCategory::Obstacle);
+    }
+}
+
+void HelloWorld::Season(const std::string& filepath)
+{
+    auto zorder = map->getLocalZOrder();
+    auto newmap = TMXTiledMap::create(filepath);
+    auto director = Director::getInstance();                       //获得导演
+    newmap->setScale(director->getVisibleSize().width / newmap->getContentSize().width);              //调整大小，适配屏幕
+    this->removeChild(map, true);
+    this->addChild(newmap, zorder);
+    map = newmap;
+}
+
+void HelloWorld::ChangeToHome()
+{
+    auto ymax = Director::getInstance()->getVisibleSize().height;  //屏幕边缘
+    auto xmax = Director::getInstance()->getVisibleSize().width;
+    auto heroposition = this->hero->getPosition();
+    HERO_POSITION = hero->getPosition();
+   
+    auto home = Home::createScene();//下一个场景
+    Director::getInstance()->pushScene(home);
+    hero->stopAllActions();
 }

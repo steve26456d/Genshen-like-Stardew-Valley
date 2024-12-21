@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="36" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="38">
+ <tileset firstgid="1" source="squar_about_snow.tsx"/>
+ <tileset firstgid="217" source="baokemeng.photo.tsx"/>
+ <tileset firstgid="2137" source="farm_autumn.tsx"/>
+ <layer id="1" name="photo-1" width="64" height="36">
+  <data encoding="base64" compression="zlib">
+   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
+  </data>
+ </layer>
+ <objectgroup id="2" name="boj-1">
+  <object id="1" name="Handrail2" x="62.3862" y="508.837" width="1345.2" height="29.2435"/>
+  <object id="3" name="Handrail4" x="1390.04" y="189.108" width="19.4957" height="319.729"/>
+  <object id="4" name="Handrail4" x="1390.04" y="-7.79827" width="15.5965" height="140.369"/>
+  <object id="7" name="canal" x="0" y="245.646" width="1058.62" height="44.8401"/>
+  <object id="8" x="286.587" y="124.772" width="33.1427" height="286.587"/>
+  <object id="9" x="508.837" y="124.772" width="33.1427" height="286.587"/>
+  <object id="10" x="734.987" y="122.823" width="29.2435" height="292.435"/>
+  <object id="11" x="961.137" y="130.621" width="29.2435" height="284.637"/>
+  <object id="12" name="Handrail6" x="1508.97" y="772.029" width="327.528" height="23.3948"/>
+  <object id="13" name="Handrail7" x="1908.63" y="764.231" width="138.419" height="29.2435"/>
+  <object id="14" name="Handrail5" x="1505.07" y="791.525" width="17.5461" height="358.721"/>
+  <object id="15" name="tree2" x="345.074" y="647.257" width="70.1845" height="109.176"/>
+  <object id="16" name="tree1" x="152.066" y="612.164" width="72.134" height="101.378"/>
+  <object id="17" name="tree3" x="477.644" y="541.98" width="52.6383" height="83.8314"/>
+  <object id="18" name="fish" x="1.94957" y="863.659" width="1050.82" height="280.738"/>
+  <object id="19" name="tree4" x="1569.4" y="-9.74784" width="62.3862" height="97.4784"/>
+  <object id="20" name="5" x="1857.94" y="33.1427" width="54.5879" height="93.5793"/>
+  <object id="25" name="grow" x="93.5793" y="-1.94957" width="1273.07" height="501.039"/>
+  <object id="26" name="place-for-animal" x="1534.31" y="803.222" width="510.787" height="343.124"/>
+  <object id="29" name="home" x="1633.74" y="99.428" width="193.007" height="257.343"/>
+  <object id="30" x="559.526" y="1547.96"/>
+  <object id="31" x="2203.01" y="976.734" width="1.94957"/>
+  <object id="32" name="Handrail1" x="58.4871" y="-1.94957" width="25.3444" height="508.837"/>
+ </objectgroup>
+</map>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="64" height="35" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="15">
+ <tileset firstgid="1" source="baokemeng.photo.tsx"/>
+ <layer id="1" name="layer2" width="64" height="35">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAAAAAAODXACMAAAE=
+  </data>
+ </layer>
+ <layer id="4" name="layer1" width="64" height="35">
+  <data encoding="base64" compression="zlib">
+   eJztmDEOwjAMAGPEKxgYWfoQdsRPEA9h4E2MzIgHIDHwBsYKqU1cxzi24+GkdEjsq51U6QApDYJcEw6NOVGhxJias4dpavL6t/+ZGEOqLpbqf4f8s3f/FvX/QHmcI/pfh/9m/csRcf7foIxnfw609D/V/wXlsYX6z8XoZf9j/Zfsa0tg+z/8w5/bX2IvU/PS6t/q/qvFXyL23PevN38P/1g462+Jmvxz/k8Yway1XfnyX8rOif+DuF5Lf86zyZo/x7sL//AP//CvwZv/G0Z69O8Ba/4XQq65ORr9TyCHRv8DyCF5/9fKF9z1kk4=
+  </data>
+ </layer>
+ <objectgroup id="7" name="object">
+  <object id="1" name="wall-7" x="3.42551" y="1085.89" width="2043.89" height="30.8296"/>
+  <object id="2" name="wall-8" x="3.42551" y="1.14184" width="27.4041" height="1085.89"/>
+  <object id="3" name="wall-9" x="30.8296" y="0" width="867.797" height="33.1133"/>
+  <object id="4" name="wall-10" x="799.286" y="33.1133" width="31.9715" height="283.715"/>
+  <object id="5" name="wall-11" x="801.57" y="473.6" width="30.8296" height="132.715"/>
+  <object id="6" name="wall-12" x="30.8296" y="574.344" width="768.457" height="34.2551"/>
+  <object id="7" name="wall-4" x="1218.34" y="480.714" width="800.428" height="27.4041"/>
+  <object id="8" name="wall-6" x="1536.91" y="609.741" width="28.5459" height="130.169"/>
+  <object id="9" name="wall-5" x="1562.03" y="704.514" width="452.168" height="37.6806"/>
+  <object id="10" name="wall-1" x="2015.34" y="2.28368" width="33.1133" height="1080.18"/>
+  <object id="11" name="wall-2" x="1217.2" y="-1.14184" width="800.428" height="31.9715"/>
+  <object id="12" name="wall-3" x="1213.77" y="27.4041" width="31.9715" height="329.991"/>
+  <object id="13" name="cook" x="1152.11" y="989.136" width="860.946" height="93.326"/>
+ </objectgroup>
+</map>
